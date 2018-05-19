@@ -15,4 +15,7 @@ include 'api'
 include 'services:webservice'
 */
 
+include 'ecommerce-backend'
+
 rootProject.name = 'ecommerce'
+
