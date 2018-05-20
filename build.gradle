@@ -6,9 +6,13 @@
  * user guide available at https://docs.gradle.org/4.3.1/userguide/tutorial_java_projects.html
  */
 
-/*
-// Apply the java plugin to add support for Java
+plugins {
+	id 'org.springframework.boot' version '2.0.2.RELEASE'
+	id 'java'
+}
+
 apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -27,5 +31,8 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+	  testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-*/
+
