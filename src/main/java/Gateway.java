@@ -12,7 +12,7 @@ public class Gateway {
 	}
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Example.class, args);
+		SpringApplication.run(Gateway.class, args);
 	}
 
 }
