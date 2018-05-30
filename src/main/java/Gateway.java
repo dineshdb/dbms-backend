@@ -3,7 +3,7 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Gateway {
 
 	@RequestMapping("/")
@@ -11,7 +11,8 @@ public class Gateway {
 		return "Hello World!";
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
+		//SpringApplication.setWebApplicationType(WebApplicationType.REACTIVE);
 		SpringApplication.run(Gateway.class, args);
 	}
 

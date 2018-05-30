@@ -8,7 +8,8 @@
 
 plugins {
 	id 'org.springframework.boot' version '2.0.2.RELEASE'
-	id 'java'
+  id 'java'
+  id "nebula.lint" version "9.3.1"
 }
 
 apply plugin: 'java'
@@ -16,8 +17,6 @@ apply plugin: 'io.spring.dependency-management'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
@@ -33,6 +32,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile("org.springframework.boot:spring-boot-starter-web")
-	  testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.springframework.boot:spring-boot-starter-webflux")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
