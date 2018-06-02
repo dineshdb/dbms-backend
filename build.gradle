@@ -35,7 +35,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-webflux")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-
+    compile("com.h2database:h2")
     compile("org.springframework.boot:spring-boot-devtools")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
