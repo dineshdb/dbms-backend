@@ -1,20 +1,23 @@
 package com.sankalpa.ecommerce.controller;
 
+import com.sankalpa.ecommerce.UserRepository;
 import com.sankalpa.ecommerce.model.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 public class UserController{
-/*
-	@GetMapping("/{user}")
-	public Mono<User> getUser(@PathVariable Long user) {
-		neturn null;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping("/add")
+	public @ResponseBody String
+    getUser(@RequestBody Long user) {
+		return "DOne";
 	}
-	*/
+
 }

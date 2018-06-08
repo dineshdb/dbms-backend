@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 public class Gateway {
 
-	@RequestMapping("/")
+	@RequestMapping("/api/")
 	String home() {
 		return "Hello World!";
 	}
