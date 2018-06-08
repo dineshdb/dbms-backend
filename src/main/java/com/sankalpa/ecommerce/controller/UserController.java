@@ -14,10 +14,17 @@ public class UserController{
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/add")
+    @GetMapping("/{userId}")
 	public @ResponseBody String
-    getUser(@RequestBody Long user) {
+    getUser(@PathVariable Long userId) {
+        // TODO
 		return "DOne";
 	}
+    @PostMapping("/add")
+    public @ResponseBody String
+    addUser(@RequestBody Long newUser) {
+        // TODO
+        return "DOne";
+    }
 
 }

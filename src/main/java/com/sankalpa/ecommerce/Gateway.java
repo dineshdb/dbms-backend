@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 public class Gateway {
 
-	@RequestMapping("/api/")
-	String home() {
-		return "Hello World!";
-	}
-
 	public static void main(String[] args) {
 		//SpringApplication.setWebApplicationType(WebApplicationType.REACTIVE);
 		SpringApplication.run(Gateway.class, args);
