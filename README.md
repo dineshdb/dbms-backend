@@ -15,9 +15,9 @@ Online web based ecommerce system.
 ## Create Database
 Install mysql or mariadb and get into its root shell. Then execute:
 ```mysql
-mysql> create database db_example; -- Create the new database
-mysql> create user 'springuser'@'localhost' identified by 'ThePassword'; -- Creates the user
-mysql> grant all on db_example.* to 'springuser'@'localhost'; -- Gives all the privileges to the new user on the newly created database
+mysql> create database dbms_project; -- Create the new database
+mysql> create user 'dbms_project'@'localhost' identified by 'ThePassword'; -- Creates the user
+mysql> grant all on dbms_project.* to 'dbms_project'@'localhost'; -- Gives all the privileges to the new user on the newly created database
 ```
 
 **Note**: Don't forget to change password in production.
