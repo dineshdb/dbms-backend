@@ -15,7 +15,7 @@ include 'api'
 include 'services:webservice'
 */
 
-include 'ecommerce-backend'
+include 'ictc_events-backend'
 
-rootProject.name = 'ecommerce'
+rootProject.name = 'ictc_events'
 

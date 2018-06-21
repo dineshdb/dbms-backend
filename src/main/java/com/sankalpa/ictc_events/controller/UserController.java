@@ -1,10 +1,8 @@
-package com.sankalpa.ecommerce.controller;
+package com.sankalpa.ictc_events.controller;
 
-import com.sankalpa.ecommerce.UserRepository;
-import com.sankalpa.ecommerce.model.User;
+import com.sankalpa.ictc_events.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 
 @RestController

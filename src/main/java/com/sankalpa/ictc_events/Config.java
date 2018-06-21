@@ -1,4 +1,4 @@
-package com.sankalpa.ecommerce;
+package com.sankalpa.ictc_events;
 
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.jdbc.*;

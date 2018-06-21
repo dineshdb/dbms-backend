@@ -1,6 +1,6 @@
-package com.sankalpa.ecommerce;
+package com.sankalpa.ictc_events;
 
-import com.sankalpa.ecommerce.model.User;
+import com.sankalpa.ictc_events.model.User;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
