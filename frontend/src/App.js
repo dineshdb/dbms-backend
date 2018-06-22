@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import './App.css';
-import { CssBaseline } from '@material-ui/core';
+import { Switch, Route, Link } from 'react-router-dom'
 import MenuBar from './MenuBar';
+import Event from './views/Event';
+import AdminDash from './views/AdminDash';
+import Home from './views/Home';
+import Signup from './views/Signup'
+import NotFound from './views/404'
 
 const styles = {
   root: {
@@ -22,10 +27,18 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-     <React.Fragment>
-       <CssBaseline />
-        <MenuBar/>
-    </React.Fragment> 
+      <div>
+        <MenuBar />
+        <main>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/event' component={Event} />
+            <Route path='/admin' component={AdminDash} />
+            <Route path='/signup' component={Signup} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+      </div>
     );
   }
 }

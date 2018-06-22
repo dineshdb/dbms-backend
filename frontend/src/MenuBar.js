@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
+import {Link } from 'react-router-dom'
 
 const styles = {
   root: {
@@ -38,12 +39,14 @@ class MenuBar extends React.Component {
       this.setState({ anchorEl: event.currentTarget });
     };
   
-    handleClose = () => {
+    handleClose = (i) => {
       this.setState({ anchorEl: null });
+      console.log(i)
     };
   
     logOut = () =>{
         this.setState({auth: false})
+        this.handleClose()
     }
     login = (event) => {
         this.setState({auth: true})
