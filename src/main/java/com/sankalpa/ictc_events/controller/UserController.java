@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController{
 
     @Autowired
@@ -15,6 +15,7 @@ public class UserController{
     @GetMapping("/{userId}")
 	public @ResponseBody String
     getUser(@PathVariable Long userId) {
+
         // TODO
 		return "DOne";
 	}

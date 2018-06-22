@@ -1,6 +1,5 @@
 package com.sankalpa.ictc_events.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
