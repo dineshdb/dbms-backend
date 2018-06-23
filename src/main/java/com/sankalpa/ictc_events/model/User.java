@@ -5,10 +5,48 @@ import javax.persistence.*;
 @Entity
 @Table
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
-@DiscriminatorColumn( name = "type" )
+@DiscriminatorColumn( name = "userRole")
 public class User {
+
 	@Id
 	@GeneratedValue
-	private Long id;
-	String name;
+	private Long userId;
+
+	@Column(nullable = false)
+	private String userName;
+
+	@Column(nullable = false)
+	private String userPassword;
+
+	public User(){}
+
+	public User(Long userId, String userName, String userPassword){
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
 }

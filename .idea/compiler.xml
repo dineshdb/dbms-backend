@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="ecommerce_main" target="1.8" />
       <module name="ecommerce_test" target="1.8" />
+      <module name="ictc_events_main" target="1.10" />
+      <module name="ictc_events_test" target="1.10" />
     </bytecodeTargetLevel>
   </component>
 </project>

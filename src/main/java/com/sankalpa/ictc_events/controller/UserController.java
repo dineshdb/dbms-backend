@@ -1,28 +1,42 @@
 package com.sankalpa.ictc_events.controller;
 
-import com.sankalpa.ictc_events.UserRepository;
+import com.sankalpa.ictc_events.model.User;
+import com.sankalpa.ictc_events.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/api/user")
 public class UserController{
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/{userId}")
-	public @ResponseBody String
-    getUser(@PathVariable Long userId) {
-        // TODO
-		return "DOne";
-	}
-    @PostMapping("/add")
-    public @ResponseBody String
-    addUser(@RequestBody Long newUser) {
-        // TODO
-        return "DOne";
+    @GetMapping("/users")
+    public @ResponseBody List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
+    @GetMapping("/users/{userId}")
+    public @ResponseBody User getUser(@PathVariable Long userId){
+        return userService.getUser(userId);
+    }
+
+    @PostMapping("/users")
+    public void addUser(@RequestBody User newUser){
+        userService.addUser(newUser);
+    }
+
+    @PutMapping("/users/{userId}")
+    public void updateUser(@RequestBody User updatedUser,
+                           @PathVariable Long userId){
+        userService.updateUser(userId, updatedUser);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public void deleteUser(@PathVariable Long userId){
+        userService.deleteUser(userId);
+    }
 }
