@@ -7,4 +7,7 @@ static/
 .idea/vcs.xml
 .idea/workspace.xml
 out/
+.idea
+.idea/
+.idea/*
 *.iml
