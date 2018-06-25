@@ -20,8 +20,7 @@ public class User {
 
 	public User(){}
 
-	public User(Long userId, String userName, String userPassword){
-		this.userId = userId;
+	public User(String userName, String userPassword){
 		this.userName = userName;
 		this.userPassword = userPassword;
 	}

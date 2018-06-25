@@ -32,9 +32,8 @@ public class EventSection {
 
     public EventSection(){}
 
-    public EventSection(Long eventSectionId, Timestamp eventSectionStartTimestamp, String eventSectionDescription,
+    public EventSection(Timestamp eventSectionStartTimestamp, String eventSectionDescription,
                         Time eventSectionDuration, Event event, List rooms) {
-        this.eventSectionId = eventSectionId;
         this.eventSectionStartTimestamp = eventSectionStartTimestamp;
         this.eventSectionDescription = eventSectionDescription;
         this.eventSectionDuration = eventSectionDuration;

@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ictc_events.iml" filepath="$PROJECT_DIR$/.idea/modules/ictc_events.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ictc_events-backend/ictc_events-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/ictc_events-backend/ictc_events-backend.iml" group="ictc_events-backend" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ictc_events_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ictc_events_main.iml" group="ictc_events" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ictc_events_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ictc_events_test.iml" group="ictc_events" />
+      <module fileurl="file://$PROJECT_DIR$/dbms.iml" filepath="$PROJECT_DIR$/dbms.iml" />
     </modules>
   </component>
 </project>

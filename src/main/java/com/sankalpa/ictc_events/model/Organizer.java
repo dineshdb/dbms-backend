@@ -26,9 +26,9 @@ public class Organizer extends User{
         this.events = events;
     }
 
-    public Organizer(Long userId, String userName, String userPassword, String organizerName, String organizerEmail,
+    public Organizer(String userName, String userPassword, String organizerName, String organizerEmail,
                      String organizerAddress, String organizerPhone, List events) {
-        super(userId, userName, userPassword);
+        super(userName, userPassword);
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
         this.organizerAddress = organizerAddress;

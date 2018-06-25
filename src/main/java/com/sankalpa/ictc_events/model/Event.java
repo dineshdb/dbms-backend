@@ -31,9 +31,8 @@ public class Event  {
 
     public Event(){}
 
-    public Event(Long eventId, String eventName, String eventDescription, int expectedNumberOfParticipants,
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
                  Date eventStartDate, Date eventEndDate, Organizer organizer, List eventSections) {
-        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;

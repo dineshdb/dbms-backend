@@ -27,9 +27,8 @@ public class Room {
 
     public Room(){}
 
-    public Room(Long roomId, String roomName, int roomCapacity, int roomFloor, String roomCategory, int costPerDay,
+    public Room(String roomName, int roomCapacity, int roomFloor, String roomCategory, int costPerDay,
                 int costPerHour, int costPerUnit, List eventSections) {
-        this.roomId = roomId;
         this.roomName = roomName;
         this.roomCapacity = roomCapacity;
         this.roomFloor = roomFloor;
