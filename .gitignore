@@ -1,6 +1,10 @@
 .gradle/*
 build/
 static/
-.idea
+.idea/gradle.xml
+.idea/misc.xml
+.idea/module.xml
+.idea/vcs.xml
+.idea/workspace.xml
 out/
 *.iml
