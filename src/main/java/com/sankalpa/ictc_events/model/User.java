@@ -3,7 +3,6 @@ package com.sankalpa.ictc_events.model;
 import javax.persistence.*;
 
 @Entity
-@Table
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
 @DiscriminatorColumn( name = "userRole")
 public class User {
