@@ -10,4 +10,8 @@ out/
 .idea
 .idea/
 .idea/*
+.settings
+bin
 *.iml
+.classpath
+.project
