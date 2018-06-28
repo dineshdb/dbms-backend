@@ -1,0 +1,42 @@
+version: "3"
+services:
+        database:
+                image: mysql
+                environment:
+                        MYSQL_ROOT_PASSWORD: "example"
+                        MYSQL_USER: "dbms_project"
+                        MYSQL_PASSWORD: "ThePassword"
+                        MYSQL_DATABASE: "dbms_project"
+                volumes:
+                        - ../database/data:/var/lib/mysql:rw
+                        - ../database/init:/docker-entrypoint-initdb.d/:ro
+
+        # Just to see and verify database                        
+        phpmyadmin:
+                image: phpmyadmin/phpmyadmin
+                restart: always
+                volumes:
+                        - /sessions
+                ports:
+                        - 8081:80
+                environment:
+                        # - PMA_ARBITRARY=1 # This line allows you to have the GUI display a 'server' field to connect to any server you wish
+                        - PMA_HOST=127.0.0.1:3306
+                depends_on:
+                        - database
+        api:
+                image: dbms_project
+                ports:
+                        - 8080:81
+                depends_on:
+                        - database
+                restart: always
+                environment:
+                        # Take this from above database service name
+                        - DATABASE_HOST=127.0.0.1
+                        - DATABASE_USER=dbms_project
+                        - DATABASE_PASSWORD=ThePassword
+                        - DATABASE_NAME=dbms_project
+                        - DATABASE_PORT=3306
+                        - SERVER_PORT=81
+
