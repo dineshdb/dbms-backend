@@ -1,12 +1,19 @@
-import React from 'react';
-
-class Event extends React.Component {
-    render() {
+import React from 'react'
+import HomeBar from '../components/appBar/index'
+import Description from '../components/Description/index'
+import Footer from '../components/footer/index'
+class Home extends React.Component
+{
+    
+    render(){
         return (
-            <h1> Hello </h1>
-        )
-    }
-
+            <div>
+               
+            <HomeBar/>
+            <Description/>
+            <Footer/>
+            </div>
+            )
 }
-
-export default Event
+}
+export default Home;

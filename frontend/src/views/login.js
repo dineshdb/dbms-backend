@@ -1,8 +1,7 @@
 import React from 'react'
 import HomeBar from '../components/appBar/index'
-import Footer from '../components/footer/index'
 import Description from '../components/Description/index'
-import Renderer from '../components/newUserDetails'
+import Footer from '../components/footer/index'
 class Home extends React.Component
 {
     render(){
@@ -11,7 +10,6 @@ class Home extends React.Component
                
             <HomeBar/>
             <Description/>
-            <Renderer/>
             <Footer/>
             </div>
             )

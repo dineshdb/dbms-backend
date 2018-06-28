@@ -1,11 +1,23 @@
-import React from 'react';
-
-class Signup extends React.Component {
-    render() {
-        return (
-            <h1> Hello </h1>
-        )
+import React from 'react'
+import HomeBar from '../components/appBar/index'
+import Footer from '../components/footer/index'
+import SignUpForm from '../components/signup/index'
+import Renderer from '../components/newUserDetails'
+class SignUp extends React.Component
+{
+    handlSubmit(values){
+        console.log(values)
     }
+    render(){
+        return (
+            <div>
+               
+            <HomeBar/>
+            <SignUpForm/>
+            <Footer/>
+            <Renderer/>
+            </div>
+            )
 }
-
-export default Signup
+}
+export default SignUp;

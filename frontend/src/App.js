@@ -1,46 +1,41 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import './App.css';
-import { Switch, Route, Link } from 'react-router-dom'
-import MenuBar from './MenuBar';
-import Event from './views/Event';
-import AdminDash from './views/AdminDash';
-import Home from './views/Home';
-import Signup from './views/Signup'
-import NotFound from './views/404'
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
+import React from 'react'
+import { BrowserRouter as Router} from 'react-router-dom'
+import Route from 'react-router-dom/Route'
+import Home from './views/home'
+import Login from './views/login'
+import SignUp from './views/signup'
+import Event from './views/event'
+import NewEvent from './views/newEvent'
 
 
-class App extends Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <MenuBar />
-        <main>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/event' component={Event} />
-            <Route path='/admin' component={AdminDash} />
-            <Route path='/signup' component={Signup} />
-            <Route component={NotFound} />
-          </Switch>
-        </main>
-      </div>
-    );
-  }
+class App extends React.Component {
+    render() {
+        return (
+            <Router>
+                <div >
+                    <Route path = "/" exact strict component={
+                      Home
+                    }
+                    />
+                    <Route path = "/login" exact strict component={
+                        Login
+                        }
+                    />
+                    <Route path = "/signup" exact strict component={
+                       SignUp
+                        }
+                    />
+                     <Route path = "/:id/newEvent" component={
+                       NewEvent
+                        }
+                    />
+                    
+                </div>
+            </Router>
+
+
+        )
+    }
 }
 
-export default withStyles(styles)(App);
+export default App;
