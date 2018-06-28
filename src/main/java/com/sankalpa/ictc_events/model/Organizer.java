@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue( value = "ORG" )
+@DiscriminatorValue( value = "ORG")
 public class Organizer extends User{
 
     private String organizerName;

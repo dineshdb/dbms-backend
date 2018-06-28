@@ -14,6 +14,11 @@ public class UserController{
     @Autowired
     private UserService userService;
 
+    @PostMapping("/login")
+    public @ResponseBody User login(@RequestBody User user){
+        return userService.login(user);
+    }
+
     @GetMapping("/users")
     public @ResponseBody List<User> getAllUsers(){
         return userService.getAllUsers();

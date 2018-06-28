@@ -14,6 +14,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    // returns a whole 'user' object if the user is found
+    // else returns null
+    public User login(User user){
+        List<User> users = getAllUsers();
+        for (User u : users){
+            if (u.getUserName().equals(user.getUserName()) &&
+                    u.getUserPassword().equals(user.getUserPassword())){
+                return u;
+            }
+        }
+        return null;
+    }
+
     public List<User> getAllUsers(){
         List<User> users = new ArrayList<User>();
         userRepository.findAll().forEach(users::add);
