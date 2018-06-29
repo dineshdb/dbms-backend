@@ -24,6 +24,14 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
+	@Transient
+	public String getDiscriminatorValue(){
+		DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
+
+		return val == null ? null : val.value();
+	}
+
+
 	public Long getUserId() {
 		return userId;
 	}

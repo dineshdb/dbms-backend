@@ -1,5 +1,6 @@
 package com.sankalpa.ictc_events.service;
 
+import com.sankalpa.ictc_events.model.LoginInfo;
 import com.sankalpa.ictc_events.model.User;
 import com.sankalpa.ictc_events.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // returns a whole 'user' object if the user is found
-    // else returns null
     public User login(User user){
         List<User> users = getAllUsers();
         for (User u : users){
