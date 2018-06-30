@@ -6,11 +6,12 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "eventsections")
 public class EventSection {
 
     @Id
     @GeneratedValue
-    private Long eventSectionId;
+    private Long id;
 
     @Column(nullable = false)
     private Timestamp eventSectionStartTimestamp;
@@ -26,8 +27,8 @@ public class EventSection {
     @ManyToMany(targetEntity = Room.class, mappedBy = "eventSections")
     private List rooms;
 
-    public Long getEventSectionId() {
-        return eventSectionId;
+    public Long getId() {
+        return id;
     }
 
     public EventSection(){}
@@ -41,8 +42,8 @@ public class EventSection {
         this.rooms = rooms;
     }
 
-    public void setEventSectionId(Long eventSectionId) {
-        this.eventSectionId = eventSectionId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Timestamp getEventSectionStartTimestamp() {

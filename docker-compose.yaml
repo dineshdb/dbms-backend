@@ -1,45 +1,27 @@
 version: "3.1"
 services:
-        database:
-                image: mysql:latest
+        postgres:
+                image: postgres
                 restart: always
-                environment:
-                        MYSQL_ROOT_PASSWORD: example
-                        MYSQL_USER: dbms_project
-                        MYSQL_PASSWORD: ThePassword
-                        MYSQL_DATABASE: dbms_project
                 ports:
-                        - 3306:3306
-                volumes:
-                        - ../database/data:/var/lib/mysql:rw
-                        - ../database/init:/docker-entrypoint-initdb.d/:ro
-
-        # Just to see and verify database                        
-        phpmyadmin:
-                image: phpmyadmin/phpmyadmin
-                restart: always
-                volumes:
-                        - /sessions
-                ports:
-                        - 8081:80
+                        - 5432:5432
                 environment:
-                        # - PMA_ARBITRARY=1 # This line allows you to have the GUI display a 'server' field to connect to any server you wish
-                        - PMA_HOST=localhost:3306
-                depends_on:
-                        - database
+                        POSTGRES_PASSWORD: example
+                        POSTGRES_USER: dbms_project
+                        POSTGRES_PASSWORD: ThePassword
+                        POSTGRES_DB:  dbms_project
         api:
                 image: dbms_project
                 restart: always
                 ports:
                         - 8080:81
                 depends_on:
-                        - database
+                        - postgres
                 environment:
                         # Take this from above database service name
-                        - DATABASE_HOST=127.0.0.1
+                        - DATABASE_HOST=postgres
                         - DATABASE_USER=dbms_project
                         - DATABASE_PASSWORD=ThePassword
                         - DATABASE_NAME=dbms_project
-                        - DATABASE_PORT=3306
+                        - DATABASE_PORT=5432
                         - SERVER_PORT=81
-

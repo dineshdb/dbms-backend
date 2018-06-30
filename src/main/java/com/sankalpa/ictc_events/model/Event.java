@@ -5,11 +5,12 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Table(name = "events")
 public class Event  {
 
     @Id
     @GeneratedValue
-    private Long eventId;
+    private Long id;
 
     @Column(nullable = false)
     private String eventName;
@@ -42,12 +43,12 @@ public class Event  {
         this.eventSections = eventSections;
     }
 
-    public Long getEventId() {
-        return eventId;
+    public Long getId() {
+        return id;
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEventName() {

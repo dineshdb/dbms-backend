@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "rooms")
 public class Room {
 
     @Id
     @GeneratedValue
-    private Long roomId;
+    private Long id;
     private String roomName;
 
     private int roomCapacity;
@@ -39,12 +40,12 @@ public class Room {
         this.eventSections = eventSections;
     }
 
-    public Long getRoomId() {
-        return roomId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRoomName() {
