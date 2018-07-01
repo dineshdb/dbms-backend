@@ -11,7 +11,7 @@ Online web based ICTC events database.
 
 ## Getting started in docker
 * build this project using ``./gradlew build``
-* build this image using ``docker build -t dbms_project .``.
+* build this image using ``docker build -t dbms_project .``
 * then start the service stack using ``docker-compose up``
 * Note that any other name for docker image will not work, otherwise you will need to change the ``docker-compose`` file.
 
