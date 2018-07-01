@@ -1,0 +1,27 @@
+version: "3.1"
+services:
+        postgres:
+                image: postgres
+                restart: always
+                ports:
+                        - 5432:5432
+                environment:
+                        POSTGRES_PASSWORD: example
+                        POSTGRES_USER: dbms_project
+                        POSTGRES_PASSWORD: ThePassword
+                        POSTGRES_DB:  dbms_project
+        api:
+                image: dbms_project
+                restart: always
+                ports:
+                        - 8080:81
+                depends_on:
+                        - postgres
+                environment:
+                        # Take this from above database service name
+                        - DATABASE_HOST=postgres
+                        - DATABASE_USER=dbms_project
+                        - DATABASE_PASSWORD=ThePassword
+                        - DATABASE_NAME=dbms_project
+                        - DATABASE_PORT=5432
+                        - SERVER_PORT=81

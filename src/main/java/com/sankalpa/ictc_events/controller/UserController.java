@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/user")
 public class UserController{
 
     @Autowired
@@ -27,35 +28,35 @@ public class UserController{
 
             // 202 responseCode is a success
             info.setResponseCode(202);
-            info.setUserId(loggedInUser.getUserId());
+            info.setUserId(loggedInUser.getId());
             info.setUserRole(loggedInUser.getDiscriminatorValue());
         }
 
         return info;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public @ResponseBody List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public @ResponseBody User getUser(@PathVariable Long userId){
         return userService.getUser(userId);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public void addUser(@RequestBody User newUser){
         userService.addUser(newUser);
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/{userId}")
     public void updateUser(@RequestBody User updatedUser,
                            @PathVariable Long userId){
         userService.updateUser(userId, updatedUser);
     }
 
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
     }
