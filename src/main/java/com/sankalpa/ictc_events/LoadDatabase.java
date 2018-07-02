@@ -1,8 +1,10 @@
 package com.sankalpa.ictc_events;
 
 import com.sankalpa.ictc_events.model.Admin;
+import com.sankalpa.ictc_events.model.Organizer;
 import com.sankalpa.ictc_events.model.Room;
 import com.sankalpa.ictc_events.repository.AdminRepository;
+import com.sankalpa.ictc_events.repository.OrganizerRepository;
 import com.sankalpa.ictc_events.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,12 +21,17 @@ public class LoadDatabase implements CommandLineRunner {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private OrganizerRepository organizerRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
         // default admin
         adminRepository.save(new Admin("admin", "ict123"));
 
+
+        // rooms
         roomRepository.save(new Room("Conference", 45, 0, "Conference", 10500, 1500, 0));
         roomRepository.save(new Room("Meeting Room", 45, 0, "Meeting", 5000, 1000, 0));
         roomRepository.save(new Room("Cafeteria", 30, 0, "Cafeteria", 5600, 800, 0));
@@ -45,6 +52,10 @@ public class LoadDatabase implements CommandLineRunner {
 
         roomRepository.save(new Room("Seminar 1", 60, 4, "Seminar", 7500, 1200, 0));
         roomRepository.save(new Room("Seminar 2", 60, 4, "Seminar", 7500, 1200, 0));
+
+        // users
+        organizerRepository.save(new Organizer("bhusal", "bhusal505", "Anish Bhusal",
+                "bhusal@anish.com", "Buddhanagar", "9845327392"));
 
     }
 }

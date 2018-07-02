@@ -17,8 +17,7 @@ public class Organizer extends User{
 
     public Organizer(){}
 
-    public Organizer(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
-                     List events) {
+    public Organizer(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone) {
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
         this.organizerAddress = organizerAddress;
@@ -27,7 +26,7 @@ public class Organizer extends User{
     }
 
     public Organizer(String userName, String userPassword, String organizerName, String organizerEmail,
-                     String organizerAddress, String organizerPhone, List events) {
+                     String organizerAddress, String organizerPhone) {
         super(userName, userPassword);
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;

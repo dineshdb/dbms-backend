@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController{
 
     @Autowired
@@ -20,8 +21,7 @@ public class UserController{
 
         User loggedInUser = userService.login(user);
 
-        LoginInfo info = new LoginInfo(Long.getLong("-1"), user.getUserName(), user.getUserPassword(),
-                "", 404);
+        LoginInfo info = new LoginInfo(Long.getLong("-1"), user.getUserName(), user.getUserPassword(), "", 404);
 
         if (loggedInUser != null) {
 
