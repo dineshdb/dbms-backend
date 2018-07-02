@@ -9,6 +9,7 @@ public class Room {
     @Id
     @GeneratedValue
     private Long roomId;
+
     private String roomName;
 
     private int roomCapacity;
@@ -28,7 +29,7 @@ public class Room {
     public Room(){}
 
     public Room(String roomName, int roomCapacity, int roomFloor, String roomCategory, int costPerDay,
-                int costPerHour, int costPerUnit, List eventSections) {
+                int costPerHour, int costPerUnit) {
         this.roomName = roomName;
         this.roomCapacity = roomCapacity;
         this.roomFloor = roomFloor;
@@ -36,7 +37,6 @@ public class Room {
         this.costPerDay = costPerDay;
         this.costPerHour = costPerHour;
         this.costPerUnit = costPerUnit;
-        this.eventSections = eventSections;
     }
 
     public Long getRoomId() {
