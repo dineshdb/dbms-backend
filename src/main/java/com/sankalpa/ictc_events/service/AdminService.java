@@ -1,6 +1,7 @@
 package com.sankalpa.ictc_events.service;
 
 import com.sankalpa.ictc_events.model.Admin;
+import com.sankalpa.ictc_events.model.Event;
 import com.sankalpa.ictc_events.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

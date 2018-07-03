@@ -1,5 +1,6 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class Event  {
     private int eventDurationInDays;
 
     private int accepted;
+
+    @ManyToOne
+    private Admin admin;
 
     @ManyToOne
     private Organizer organizer;
@@ -52,14 +56,23 @@ public class Event  {
     }
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, int accepted, Organizer organizer, List eventSections) {
+                 int eventDurationInDays, int accepted, Admin admin, Organizer organizer, List eventSections) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.eventDurationInDays = eventDurationInDays;
         this.accepted = accepted;
+        this.admin = admin;
         this.organizer = organizer;
         this.eventSections = eventSections;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
     public int getAccepted() {

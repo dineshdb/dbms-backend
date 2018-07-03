@@ -13,7 +13,7 @@ public class Organizer extends User{
     private String organizerPhone;
 
     @OneToMany(targetEntity = Event.class, mappedBy = "organizer")
-    private List events;
+    private List<Event> events;
 
     public Organizer(){}
 
