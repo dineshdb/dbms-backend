@@ -50,9 +50,8 @@ public class AdminController {
         return eventService.getAllEvents(adminId);
     }
 
-    @PutMapping("/admins/{adminId}/events")
-    public void approveEvent(@RequestBody Event event, @PathVariable Long adminId){
-        event.setAdmin(adminService.getAdmin(adminId));
-        eventService.updateEvent(event.getEventId(), event);
+    @PutMapping("/admins/{adminId}/events/{eventId}")
+    public void approveEvent(@PathVariable Long adminId, @PathVariable Long eventId){
+        adminService.approveEvent(eventId, adminId);
     }
 }

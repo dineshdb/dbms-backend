@@ -21,7 +21,6 @@ public class EventService {
     }
 
     public List<Event> getAllEvents(Long adminId){
-        // TODO: here is the cause of stackoverflow error
         return eventRepository.findByAdminUserId(adminId);
     }
 
