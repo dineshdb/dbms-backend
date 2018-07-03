@@ -1,5 +1,7 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class Organizer extends User{
     private String organizerPhone;
 
     @OneToMany(targetEntity = Event.class, mappedBy = "organizer")
+    @JsonIgnore
     private List<Event> events;
 
     public Organizer(){}

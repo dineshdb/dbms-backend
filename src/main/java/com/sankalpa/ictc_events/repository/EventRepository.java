@@ -9,4 +9,5 @@ import java.util.List;
 public interface EventRepository extends CrudRepository<Event, Long> {
 
     public List<Event> findByAdminUserId(Long adminId);
+    public List<Event> findByOrganizerUserId(Long organizerId);
 }
