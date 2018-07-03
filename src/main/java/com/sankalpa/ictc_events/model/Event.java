@@ -1,5 +1,7 @@
 package com.sankalpa.ictc_events.model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.List;
 import javax.persistence.*;
 import java.sql.Date;
@@ -18,10 +20,9 @@ public class Event  {
     private int expectedNumberOfParticipants;
 
     @Column(nullable = false)
-    private Date eventStartDate;
+    private int eventDurationInDays;
 
-    @Column(nullable = false)
-    private Date eventEndDate;
+    private int accepted;
 
     @ManyToOne
     private Organizer organizer;
@@ -31,15 +32,50 @@ public class Event  {
 
     public Event(){}
 
-    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 Date eventStartDate, Date eventEndDate, Organizer organizer, List eventSections) {
+    public Event(Long eventId, String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, int accepted) {
+        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-        this.eventStartDate = eventStartDate;
-        this.eventEndDate = eventEndDate;
+        this.eventDurationInDays = eventDurationInDays;
+        this.accepted = accepted;
+    }
+
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, int accepted) {
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+        this.eventDurationInDays = eventDurationInDays;
+        this.accepted = accepted;
+    }
+
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, int accepted, Organizer organizer, List eventSections) {
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+        this.eventDurationInDays = eventDurationInDays;
+        this.accepted = accepted;
         this.organizer = organizer;
         this.eventSections = eventSections;
+    }
+
+    public int getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(int accepted) {
+        this.accepted = accepted;
+    }
+
+    public int getEventDurationInDays() {
+        return eventDurationInDays;
+    }
+
+    public void setEventDurationInDays(int eventDurationInDays) {
+        this.eventDurationInDays = eventDurationInDays;
     }
 
     public Long getEventId() {
@@ -72,22 +108,6 @@ public class Event  {
 
     public void setExpectedNumberOfParticipants(int expectedNumberOfParticipants) {
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-    }
-
-    public Date getEventStartDate() {
-        return eventStartDate;
-    }
-
-    public void setEventStartDate(Date eventStartDate) {
-        this.eventStartDate = eventStartDate;
-    }
-
-    public Date getEventEndDate() {
-        return eventEndDate;
-    }
-
-    public void setEventEndDate(Date eventEndDate) {
-        this.eventEndDate = eventEndDate;
     }
 
     public Organizer getOrganizer() {
