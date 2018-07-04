@@ -1,6 +1,7 @@
 package com.sankalpa.ictc_events.controller;
 
 import com.sankalpa.ictc_events.model.Event;
+import com.sankalpa.ictc_events.model.EventInfo;
 import com.sankalpa.ictc_events.model.Organizer;
 import com.sankalpa.ictc_events.service.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,10 @@ public class OrganizerController {
     @PostMapping("/organizers/{organizerId}/events")
     public void createEvent(@RequestBody Event event, @PathVariable Long organizerId){
         organizerService.createEvent(event, organizerId);
+    }
+
+    @PostMapping("/organizers/{organizerId}/eventInfo")
+    public void eventInfo(@RequestBody EventInfo eventInfo, @PathVariable Long organizerId){
+        organizerService.eventInfo(eventInfo, organizerId);
     }
 }

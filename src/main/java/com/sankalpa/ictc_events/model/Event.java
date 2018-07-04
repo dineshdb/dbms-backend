@@ -1,5 +1,6 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -23,6 +24,9 @@ public class Event  {
     @Column(nullable = false)
     private int eventDurationInDays;
 
+    private Date eventStartDate;
+    private Date eventEndDate;
+
     private int accepted;
 
     @ManyToOne
@@ -32,35 +36,43 @@ public class Event  {
     private Organizer organizer;
 
     @OneToMany(mappedBy = "event", targetEntity = EventSection.class)
-    private List eventSections;
+    @JsonIgnore
+    private List<EventSection> eventSections;
 
     public Event(){}
 
     public Event(Long eventId, String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, int accepted) {
+                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.eventDurationInDays = eventDurationInDays;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
         this.accepted = accepted;
     }
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, int accepted) {
+                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.eventDurationInDays = eventDurationInDays;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
         this.accepted = accepted;
     }
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, int accepted, Admin admin, Organizer organizer, List eventSections) {
+                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted,
+                 Admin admin, Organizer organizer, List eventSections) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.eventDurationInDays = eventDurationInDays;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
         this.accepted = accepted;
         this.admin = admin;
         this.organizer = organizer;
@@ -73,6 +85,22 @@ public class Event  {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    public Date getEventStartDate() {
+        return eventStartDate;
+    }
+
+    public void setEventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
+    }
+
+    public Date getEventEndDate() {
+        return eventEndDate;
+    }
+
+    public void setEventEndDate(Date eventEndDate) {
+        this.eventEndDate = eventEndDate;
     }
 
     public int getAccepted() {

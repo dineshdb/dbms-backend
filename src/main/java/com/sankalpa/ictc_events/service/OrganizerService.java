@@ -1,11 +1,14 @@
 package com.sankalpa.ictc_events.service;
 
 import com.sankalpa.ictc_events.model.Event;
+import com.sankalpa.ictc_events.model.EventInfo;
 import com.sankalpa.ictc_events.model.Organizer;
+import com.sankalpa.ictc_events.model.RoomMatrix;
 import com.sankalpa.ictc_events.repository.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,5 +55,24 @@ public class OrganizerService {
 
         // TODO: set the eventSections here too.
         eventService.addEvent(event);
+    }
+
+    public void eventInfo(EventInfo eventInfo, Long organizerId) {
+
+        Event event = eventInfo.getEvent();
+        createEvent(event, organizerId);
+
+        List<RoomMatrix> roomMatrixList = new ArrayList<>();
+        roomMatrixList = eventInfo.getRoomMatrixList();
+
+        event.setEventStartDate(roomMatrixList.get(0).getDate());
+        event.setEventEndDate(roomMatrixList.get(roomMatrixList.size() - 1).getDate());
+
+        for (RoomMatrix matrix : roomMatrixList){
+            Date date = matrix.getDate();
+
+        }
+
+        // TODO: finally update the event;
     }
 }
