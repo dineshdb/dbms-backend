@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,6 @@ public class OrganizerService {
 
         List<RoomMatrix> roomMatrixList = eventInfo.getRoomMatrixList();
 
-        // TODO: fix the error with faulty date
         event.setEventStartDate(roomMatrixList.get(0).getDate());
         event.setEventEndDate(roomMatrixList.get(roomMatrixList.size() - 1).getDate());
 
@@ -88,7 +88,8 @@ public class OrganizerService {
 
                     EventSection eventSection = eventSectionService.getEventSection(eventSectionId);
                     eventSection.setEvent(event);
-                    eventSection.setEventSectionStartTimestamp(constructTimestamp(date, 9 + i));
+                    eventSection.setEventSectionDate(date);
+                    eventSection.setEventSectionTime(LocalTime.of(9 + i, 0, 0));
 
                     List<Room> rooms = roomService.getAllRoomsInOrder();
                     // rooms have id from 2 to 16
@@ -122,9 +123,5 @@ public class OrganizerService {
             result = result || mat[i];
         }
         return result;
-    }
-
-    private LocalDateTime constructTimestamp(LocalDate date, int startHour){
-        return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), startHour, 0, 0);
     }
 }

@@ -1,5 +1,7 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,13 @@ public class Room {
     private int costPerHour;
     private int costPerUnit;
 
+
+    // TODO: again @JsonIgnore to the rescue to avoid stackoverflow
     @ManyToMany(targetEntity = EventSection.class)  // room is the source column
     @JoinTable(name = "EventSection_Room",
             joinColumns = @JoinColumn(name = "Room_Id"),
             inverseJoinColumns = @JoinColumn(name = "EventSection_Id"))
+    @JsonIgnore
     private List<EventSection> eventSections;
 
     public Room(){}

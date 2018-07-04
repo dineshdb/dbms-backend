@@ -1,10 +1,12 @@
 package com.sankalpa.ictc_events.controller;
 
+import com.sankalpa.ictc_events.model.DateString;
 import com.sankalpa.ictc_events.model.EventSection;
 import com.sankalpa.ictc_events.service.EventSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,4 +42,10 @@ public class EventSectionController {
         eventSectionService.deleteEvenSection(eventSectionId);
     }
 
+
+    // TODO: return a boolean[][] array instead of a list of EventSection
+    @PostMapping("/eventSections/findByDate")
+    public @ResponseBody boolean[][] filterByEventSectionDate(@RequestBody DateString dateString){
+        return eventSectionService.filterByEventSectionDate(dateString);
+    }
 }

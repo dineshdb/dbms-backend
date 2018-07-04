@@ -2,7 +2,9 @@ package com.sankalpa.ictc_events.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -14,7 +16,8 @@ public class EventSection {
     @GeneratedValue
     private Long eventSectionId;
 
-    private LocalDateTime eventSectionStartTimestamp;
+    private LocalDate eventSectionDate;
+    private LocalTime eventSectionTime;
 
     @ManyToOne
     private Event event;
@@ -28,8 +31,9 @@ public class EventSection {
 
     public EventSection(){}
 
-    public EventSection(LocalDateTime eventSectionStartTimestamp, Event event, List rooms) {
-        this.eventSectionStartTimestamp = eventSectionStartTimestamp;
+    public EventSection(LocalDate eventSectionDate, LocalTime eventSectionTime, Event event, List rooms) {
+        this.eventSectionDate = eventSectionDate;
+        this.eventSectionTime = eventSectionTime;
         this.event = event;
         this.rooms = rooms;
     }
@@ -38,12 +42,28 @@ public class EventSection {
         this.eventSectionId = eventSectionId;
     }
 
-    public LocalDateTime getEventSectionStartTimestamp() {
-        return eventSectionStartTimestamp;
+    public LocalDate getEventSectionDate() {
+        return eventSectionDate;
     }
 
-    public void setEventSectionStartTimestamp(LocalDateTime eventSectionStartTimestamp) {
-        this.eventSectionStartTimestamp = eventSectionStartTimestamp;
+    public void setEventSectionDate(LocalDate eventSectionDate) {
+        this.eventSectionDate = eventSectionDate;
+    }
+
+    public LocalTime getEventSectionTime() {
+        return eventSectionTime;
+    }
+
+    public void setEventSectionTime(LocalTime eventSectionTime) {
+        this.eventSectionTime = eventSectionTime;
+    }
+
+    public LocalDate getDate(){
+        return eventSectionDate;
+    }
+
+    public int getHour(){
+        return eventSectionTime.getHour();
     }
 
     public Event getEvent() {
