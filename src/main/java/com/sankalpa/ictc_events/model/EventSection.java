@@ -2,6 +2,7 @@ package com.sankalpa.ictc_events.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -62,6 +63,9 @@ public class EventSection {
 
     public void addRoom(Room room){
         List<Room> rooms = getRooms();
+        if (rooms == null){
+            rooms = new ArrayList<>();
+        }
         rooms.add(room);
     }
 }

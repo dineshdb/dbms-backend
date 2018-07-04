@@ -1,6 +1,7 @@
 package com.sankalpa.ictc_events.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -112,6 +113,9 @@ public class Room {
 
     public void addEventSection(EventSection eventSection){
         List<EventSection> eventSections = getEventSections();
+        if (eventSections == null){
+            eventSections = new ArrayList<>();
+        }
         eventSections.add(eventSection);
     }
 }

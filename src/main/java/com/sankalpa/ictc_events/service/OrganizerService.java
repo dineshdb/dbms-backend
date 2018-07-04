@@ -68,22 +68,12 @@ public class OrganizerService {
     public void eventInfo(EventInfo eventInfo, Long organizerId) {
 
         Long eventId = createEvent(eventInfo.getEvent(), organizerId);
-
-        // DEBUG
-        log.info("DEBUG: An Event is created with id " + eventId);
-
         Event event = eventService.getEvent(eventId);
 
         List<RoomMatrix> roomMatrixList = eventInfo.getRoomMatrixList();
 
-        // DEBUG
-        log.info("DEBUG: Event Start Date " + roomMatrixList.get(0).getDate());
-
+        // TODO: fix the error with faulty date
         event.setEventStartDate(roomMatrixList.get(0).getDate());
-
-        // DEBUG
-        log.info("DEBUG: Event End Date " + roomMatrixList.get(roomMatrixList.size() - 1).getDate());
-
         event.setEventEndDate(roomMatrixList.get(roomMatrixList.size() - 1).getDate());
 
         for (RoomMatrix roomMatrix : roomMatrixList){
@@ -96,15 +86,9 @@ public class OrganizerService {
                     // construct the eventSection
                     Long eventSectionId = eventSectionService.createEventSection(new EventSection());
 
-                    // DEBUG
-                    log.info("DEBUG: EventSection Created with Id " + eventSectionId);
-
                     EventSection eventSection = eventSectionService.getEventSection(eventSectionId);
                     eventSection.setEvent(event);
                     eventSection.setEventSectionStartTimestamp(constructTimestamp(date, 9 + i));
-
-                    // DEBUG
-                    log.info("DEBUG: EventSection Timestamp " + constructTimestamp(date, 9 + i));
 
                     List<Room> rooms = roomService.getAllRoomsInOrder();
                     // rooms have id from 2 to 16
@@ -115,31 +99,17 @@ public class OrganizerService {
                         if(matrix[i][j] == true){
                             Room room = roomService.getRoom((long) 2 + j);
 
-                            // DEBUG
-                            log.info("DEBUG: Got room with Id " + room.getRoomId());
-
                             eventSection.addRoom(room);
                             room.addEventSection(eventSection);
                             roomService.updateRoom((long) 2 + j, room);
-
-                            // DEBUG
-                            log.info("DEBUG: Room updated with Id " + room.getRoomId());
                         }
                     }
                     eventSectionService.updateEventSection(eventSectionId, eventSection);
-
-                    // DEBUG
-                    log.info("DEBUG: EventSection Updated with Id " + eventSectionId);
                 }
             }
 
         }
         eventService.updateEvent(eventId, event);
-
-        // DEBUG
-        log.info("DEBUG: Event Updated with Id " + eventId);
-
-        // TODO: finally update the event;
     }
 
     private boolean atLeastOne(boolean[] mat){
@@ -149,7 +119,7 @@ public class OrganizerService {
 
         boolean result = false;
         for (int i = 0; i < mat.length; i++){
-            result = false | mat[i];
+            result = result || mat[i];
         }
         return result;
     }
