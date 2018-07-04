@@ -1,6 +1,6 @@
 package com.sankalpa.ictc_events.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class RoomMatrix {
 
@@ -53,8 +53,7 @@ public class RoomMatrix {
         this.matrix = matrix;
     }
 
-    public Date getDate(){
-        // TODO: replace this deprecated method
-        return new Date(getYear(), getMonth(), getDay());
+    public LocalDate getDate(){
+        return LocalDate.of(getYear(), getMonth(), getDay());
     }
 }

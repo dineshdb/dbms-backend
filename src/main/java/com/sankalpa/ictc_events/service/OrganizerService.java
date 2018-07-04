@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class OrganizerService {
         event.setEventEndDate(roomMatrixList.get(roomMatrixList.size() - 1).getDate());
 
         for (RoomMatrix roomMatrix : roomMatrixList){
-            Date date = roomMatrix.getDate();
+            LocalDate date = roomMatrix.getDate();
 
             boolean[][] matrix = roomMatrix.getMatrix();
             for (int i = 0; i < matrix.length; i++){
@@ -124,8 +124,7 @@ public class OrganizerService {
         return result;
     }
 
-    private Timestamp constructTimestamp(Date date, int startHour){
-        // TODO: replace this deprecated method
-        return new Timestamp(date.getYear(), date.getMonth(), date.getDay(), startHour, 0, 0, 0);
+    private LocalDateTime constructTimestamp(LocalDate date, int startHour){
+        return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), startHour, 0, 0);
     }
 }

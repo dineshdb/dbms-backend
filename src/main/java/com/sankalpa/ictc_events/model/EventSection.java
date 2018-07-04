@@ -2,6 +2,7 @@ package com.sankalpa.ictc_events.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -13,7 +14,7 @@ public class EventSection {
     @GeneratedValue
     private Long eventSectionId;
 
-    private Timestamp eventSectionStartTimestamp;
+    private LocalDateTime eventSectionStartTimestamp;
 
     @ManyToOne
     private Event event;
@@ -27,7 +28,7 @@ public class EventSection {
 
     public EventSection(){}
 
-    public EventSection(Timestamp eventSectionStartTimestamp, Event event, List rooms) {
+    public EventSection(LocalDateTime eventSectionStartTimestamp, Event event, List rooms) {
         this.eventSectionStartTimestamp = eventSectionStartTimestamp;
         this.event = event;
         this.rooms = rooms;
@@ -37,11 +38,11 @@ public class EventSection {
         this.eventSectionId = eventSectionId;
     }
 
-    public Timestamp getEventSectionStartTimestamp() {
+    public LocalDateTime getEventSectionStartTimestamp() {
         return eventSectionStartTimestamp;
     }
 
-    public void setEventSectionStartTimestamp(Timestamp eventSectionStartTimestamp) {
+    public void setEventSectionStartTimestamp(LocalDateTime eventSectionStartTimestamp) {
         this.eventSectionStartTimestamp = eventSectionStartTimestamp;
     }
 

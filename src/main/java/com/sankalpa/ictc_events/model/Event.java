@@ -2,9 +2,9 @@ package com.sankalpa.ictc_events.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class Event  {
@@ -22,8 +22,8 @@ public class Event  {
     @Column(nullable = false)
     private int eventDurationInDays;
 
-    private Date eventStartDate;
-    private Date eventEndDate;
+    private LocalDate eventStartDate;
+    private LocalDate eventEndDate;
 
     private int accepted;
 
@@ -51,7 +51,7 @@ public class Event  {
     }
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted) {
+                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
@@ -64,7 +64,7 @@ public class Event  {
 
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted,
+                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted,
                  Admin admin, Organizer organizer, List eventSections) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
@@ -86,19 +86,19 @@ public class Event  {
         this.admin = admin;
     }
 
-    public Date getEventStartDate() {
+    public LocalDate getEventStartDate() {
         return eventStartDate;
     }
 
-    public void setEventStartDate(Date eventStartDate) {
+    public void setEventStartDate(LocalDate eventStartDate) {
         this.eventStartDate = eventStartDate;
     }
 
-    public Date getEventEndDate() {
+    public LocalDate getEventEndDate() {
         return eventEndDate;
     }
 
-    public void setEventEndDate(Date eventEndDate) {
+    public void setEventEndDate(LocalDate eventEndDate) {
         this.eventEndDate = eventEndDate;
     }
 
