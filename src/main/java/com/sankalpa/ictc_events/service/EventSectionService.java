@@ -36,4 +36,9 @@ public class EventSectionService {
     public void deleteEvenSection(Long eventSectionId){
         eventSectionRepository.deleteById(eventSectionId);
     }
+
+    public Long createEventSection(EventSection eventSection) {
+        addEventSection(eventSection);
+        return eventSection.getEventSectionId();
+    }
 }

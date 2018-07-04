@@ -39,4 +39,9 @@ public class RoomController {
                            @PathVariable Long roomId){
         roomService.updateRoom(roomId, updatedRoom);
     }
+
+    @GetMapping("/roomsInOrder")
+    public @ResponseBody List<Room> getAllRoomsInOrder(){
+        return roomService.getAllRoomsInOrder();
+    }
 }

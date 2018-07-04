@@ -23,8 +23,7 @@ public class Room {
     @JoinTable(name = "EventSection_Room",
             joinColumns = @JoinColumn(name = "Room_Id"),
             inverseJoinColumns = @JoinColumn(name = "EventSection_Id"))
-    private List eventSections;
-    // TODO: make use of eventSections
+    private List<EventSection> eventSections;
 
     public Room(){}
 
@@ -103,11 +102,16 @@ public class Room {
         this.costPerUnit = costPerUnit;
     }
 
-    public List getEventSections() {
+    public List<EventSection> getEventSections() {
         return eventSections;
     }
 
-    public void setEventSections(List eventSections) {
+    public void setEventSections(List<EventSection> eventSections) {
         this.eventSections = eventSections;
+    }
+
+    public void addEventSection(EventSection eventSection){
+        List<EventSection> eventSections = getEventSections();
+        eventSections.add(eventSection);
     }
 }

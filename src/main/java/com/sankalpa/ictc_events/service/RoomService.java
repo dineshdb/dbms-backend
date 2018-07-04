@@ -30,9 +30,14 @@ public class RoomService {
 
     public void updateRoom(Long roomId, Room updatedRoom){
         roomRepository.save(updatedRoom);
+        System.out.println("Room " + roomId + " is updated");
     }
 
     public void deleteRoom(Long roomId){
         roomRepository.deleteById(roomId);
+    }
+
+    public List<Room> getAllRoomsInOrder() {
+        return roomRepository.findAllByOrderByRoomId();
     }
 }

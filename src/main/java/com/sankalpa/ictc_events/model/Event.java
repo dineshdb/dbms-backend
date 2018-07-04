@@ -1,8 +1,6 @@
 package com.sankalpa.ictc_events.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 import javax.persistence.*;
@@ -41,9 +39,8 @@ public class Event  {
 
     public Event(){}
 
-    public Event(Long eventId, String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted) {
-        this.eventId = eventId;
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, int accepted) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
@@ -63,6 +60,8 @@ public class Event  {
         this.eventEndDate = eventEndDate;
         this.accepted = accepted;
     }
+
+
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
                  int eventDurationInDays, Date eventStartDate, Date eventEndDate, int accepted,

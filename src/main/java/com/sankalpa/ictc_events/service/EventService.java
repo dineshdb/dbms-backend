@@ -32,8 +32,9 @@ public class EventService {
         eventRepository.save(updatedEvent);
     }
 
-    public void addEvent(Event newEvent){
+    public Long addEvent(Event newEvent){
         eventRepository.save(newEvent);
+        return newEvent.getEventId();
     }
 
     public void deleteEvent(Long eventId){

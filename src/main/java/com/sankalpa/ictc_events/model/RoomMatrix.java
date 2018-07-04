@@ -7,22 +7,42 @@ public class RoomMatrix {
     private static final int HOURS = 8;
     private static final int ROOMS = 15;
 
-    private Date date;
+    private int year;
+    private int month;
+    private int day;
     private boolean[][] matrix = new boolean[HOURS][ROOMS];
 
     public RoomMatrix(){}
 
-    public RoomMatrix(Date date, boolean[][] matrix){
-        this.date = date;
+    public RoomMatrix(int year, int month, int day, boolean[][] matrix) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.matrix = matrix;
     }
 
-    public Date getDate() {
-        return date;
+    public int getYear() {
+        return year;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public boolean[][] getMatrix() {
@@ -31,5 +51,10 @@ public class RoomMatrix {
 
     public void setMatrix(boolean[][] matrix) {
         this.matrix = matrix;
+    }
+
+    public Date getDate(){
+        // TODO: replace this deprecated method
+        return new Date(getYear(), getMonth(), getDay());
     }
 }
