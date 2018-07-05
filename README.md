@@ -18,3 +18,9 @@ mysql> grant all on dbms_project.* to 'dbms_project'@'localhost'; -- Gives all t
 ```
 
 **Note**: Don't forget to change password in production.
+
+##Authors
+* [Rupesh Shrestha](https://github.com/RUPESH1439)(Email: rupesh.shrestha96742@gmail.com) 
+* [Dinesh Bhattarai](https://github.com/dineshdb)(Email: dbhattarai252@gmail.com)
+* [Jeevan Thapa](https://github.com/JeevanThapa9111)(Email: 072bct514@ioe.edu.np)
+* [Aashutosh Poudel](https://github.com/atosh502)(Email: aashutoshpoudyal@gmail.com)
