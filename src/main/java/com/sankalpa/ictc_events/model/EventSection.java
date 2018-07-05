@@ -1,7 +1,11 @@
 package com.sankalpa.ictc_events.model;
 
-import java.sql.Time;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -12,19 +16,14 @@ public class EventSection {
     @GeneratedValue
     private Long eventSectionId;
 
-    @Column(nullable = false)
-    private Timestamp eventSectionStartTimestamp;
-
-    private String eventSectionDescription;
-
-    @Column(nullable = false)
-    private Time eventSectionDuration;
+    private LocalDate eventSectionDate;
+    private LocalTime eventSectionTime;
 
     @ManyToOne
     private Event event;
 
     @ManyToMany(targetEntity = Room.class, mappedBy = "eventSections")
-    private List rooms;
+    private List<Room> rooms;
 
     public Long getEventSectionId() {
         return eventSectionId;
@@ -32,11 +31,9 @@ public class EventSection {
 
     public EventSection(){}
 
-    public EventSection(Timestamp eventSectionStartTimestamp, String eventSectionDescription,
-                        Time eventSectionDuration, Event event, List rooms) {
-        this.eventSectionStartTimestamp = eventSectionStartTimestamp;
-        this.eventSectionDescription = eventSectionDescription;
-        this.eventSectionDuration = eventSectionDuration;
+    public EventSection(LocalDate eventSectionDate, LocalTime eventSectionTime, Event event, List rooms) {
+        this.eventSectionDate = eventSectionDate;
+        this.eventSectionTime = eventSectionTime;
         this.event = event;
         this.rooms = rooms;
     }
@@ -45,28 +42,28 @@ public class EventSection {
         this.eventSectionId = eventSectionId;
     }
 
-    public Timestamp getEventSectionStartTimestamp() {
-        return eventSectionStartTimestamp;
+    public LocalDate getEventSectionDate() {
+        return eventSectionDate;
     }
 
-    public void setEventSectionStartTimestamp(Timestamp eventSectionStartTimestamp) {
-        this.eventSectionStartTimestamp = eventSectionStartTimestamp;
+    public void setEventSectionDate(LocalDate eventSectionDate) {
+        this.eventSectionDate = eventSectionDate;
     }
 
-    public String getEventSectionDescription() {
-        return eventSectionDescription;
+    public LocalTime getEventSectionTime() {
+        return eventSectionTime;
     }
 
-    public void setEventSectionDescription(String eventSectionDescription) {
-        this.eventSectionDescription = eventSectionDescription;
+    public void setEventSectionTime(LocalTime eventSectionTime) {
+        this.eventSectionTime = eventSectionTime;
     }
 
-    public Time getEventSectionDuration() {
-        return eventSectionDuration;
+    public LocalDate getDate(){
+        return eventSectionDate;
     }
 
-    public void setEventSectionDuration(Time eventSectionDuration) {
-        this.eventSectionDuration = eventSectionDuration;
+    public int getHour(){
+        return eventSectionTime.getHour();
     }
 
     public Event getEvent() {
@@ -83,5 +80,13 @@ public class EventSection {
 
     public void setRooms(List rooms) {
         this.rooms = rooms;
+    }
+
+    public void addRoom(Room room){
+        List<Room> rooms = getRooms();
+        if (rooms == null){
+            rooms = new ArrayList<>();
+        }
+        rooms.add(room);
     }
 }

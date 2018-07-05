@@ -1,8 +1,10 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class Event  {
@@ -18,28 +20,102 @@ public class Event  {
     private int expectedNumberOfParticipants;
 
     @Column(nullable = false)
-    private Date eventStartDate;
+    private int eventDurationInDays;
 
-    @Column(nullable = false)
-    private Date eventEndDate;
+    private LocalDate eventStartDate;
+    private LocalDate eventEndDate;
+
+    private int accepted;
+
+    @ManyToOne
+    private Admin admin;
 
     @ManyToOne
     private Organizer organizer;
 
     @OneToMany(mappedBy = "event", targetEntity = EventSection.class)
-    private List eventSections;
+    @JsonIgnore
+    private List<EventSection> eventSections;
 
     public Event(){}
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 Date eventStartDate, Date eventEndDate, Organizer organizer, List eventSections) {
+                 int eventDurationInDays, int accepted) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+        this.eventDurationInDays = eventDurationInDays;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
+        this.accepted = accepted;
+    }
+
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted) {
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+        this.eventDurationInDays = eventDurationInDays;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
+        this.accepted = accepted;
+    }
+
+
+
+    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted,
+                 Admin admin, Organizer organizer, List eventSections) {
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+        this.eventDurationInDays = eventDurationInDays;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
+        this.accepted = accepted;
+        this.admin = admin;
         this.organizer = organizer;
         this.eventSections = eventSections;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public LocalDate getEventStartDate() {
+        return eventStartDate;
+    }
+
+    public void setEventStartDate(LocalDate eventStartDate) {
+        this.eventStartDate = eventStartDate;
+    }
+
+    public LocalDate getEventEndDate() {
+        return eventEndDate;
+    }
+
+    public void setEventEndDate(LocalDate eventEndDate) {
+        this.eventEndDate = eventEndDate;
+    }
+
+    public int getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(int accepted) {
+        this.accepted = accepted;
+    }
+
+    public int getEventDurationInDays() {
+        return eventDurationInDays;
+    }
+
+    public void setEventDurationInDays(int eventDurationInDays) {
+        this.eventDurationInDays = eventDurationInDays;
     }
 
     public Long getEventId() {
@@ -72,22 +148,6 @@ public class Event  {
 
     public void setExpectedNumberOfParticipants(int expectedNumberOfParticipants) {
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-    }
-
-    public Date getEventStartDate() {
-        return eventStartDate;
-    }
-
-    public void setEventStartDate(Date eventStartDate) {
-        this.eventStartDate = eventStartDate;
-    }
-
-    public Date getEventEndDate() {
-        return eventEndDate;
-    }
-
-    public void setEventEndDate(Date eventEndDate) {
-        this.eventEndDate = eventEndDate;
     }
 
     public Organizer getOrganizer() {

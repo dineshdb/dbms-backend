@@ -1,6 +1,9 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,6 +12,7 @@ public class Room {
     @Id
     @GeneratedValue
     private Long roomId;
+
     private String roomName;
 
     private int roomCapacity;
@@ -18,17 +22,19 @@ public class Room {
     private int costPerHour;
     private int costPerUnit;
 
+
+    // TODO: again @JsonIgnore to the rescue to avoid stackoverflow
     @ManyToMany(targetEntity = EventSection.class)  // room is the source column
     @JoinTable(name = "EventSection_Room",
             joinColumns = @JoinColumn(name = "Room_Id"),
             inverseJoinColumns = @JoinColumn(name = "EventSection_Id"))
-    private List eventSections;
-    // TODO: make use of eventSections
+    @JsonIgnore
+    private List<EventSection> eventSections;
 
     public Room(){}
 
     public Room(String roomName, int roomCapacity, int roomFloor, String roomCategory, int costPerDay,
-                int costPerHour, int costPerUnit, List eventSections) {
+                int costPerHour, int costPerUnit) {
         this.roomName = roomName;
         this.roomCapacity = roomCapacity;
         this.roomFloor = roomFloor;
@@ -36,7 +42,6 @@ public class Room {
         this.costPerDay = costPerDay;
         this.costPerHour = costPerHour;
         this.costPerUnit = costPerUnit;
-        this.eventSections = eventSections;
     }
 
     public Long getRoomId() {
@@ -103,11 +108,19 @@ public class Room {
         this.costPerUnit = costPerUnit;
     }
 
-    public List getEventSections() {
+    public List<EventSection> getEventSections() {
         return eventSections;
     }
 
-    public void setEventSections(List eventSections) {
+    public void setEventSections(List<EventSection> eventSections) {
         this.eventSections = eventSections;
+    }
+
+    public void addEventSection(EventSection eventSection){
+        List<EventSection> eventSections = getEventSections();
+        if (eventSections == null){
+            eventSections = new ArrayList<>();
+        }
+        eventSections.add(eventSection);
     }
 }

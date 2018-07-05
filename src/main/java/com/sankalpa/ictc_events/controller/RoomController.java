@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:3000")
 public class RoomController {
 
     @Autowired
@@ -37,5 +38,10 @@ public class RoomController {
     public void updateRoom(@RequestBody Room updatedRoom,
                            @PathVariable Long roomId){
         roomService.updateRoom(roomId, updatedRoom);
+    }
+
+    @GetMapping("/roomsInOrder")
+    public @ResponseBody List<Room> getAllRoomsInOrder(){
+        return roomService.getAllRoomsInOrder();
     }
 }

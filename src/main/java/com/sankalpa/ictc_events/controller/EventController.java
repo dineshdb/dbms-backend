@@ -1,6 +1,7 @@
 package com.sankalpa.ictc_events.controller;
 
 import com.sankalpa.ictc_events.model.Event;
+import com.sankalpa.ictc_events.service.AdminService;
 import com.sankalpa.ictc_events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
 
     @Autowired

@@ -20,6 +20,10 @@ public class EventService {
         return events;
     }
 
+    public List<Event> getAllEvents(Long adminId){
+        return eventRepository.findByAdminUserId(adminId);
+    }
+
     public Event getEvent(Long eventId){
         return eventRepository.findById(eventId).orElse(null);
     }
@@ -28,11 +32,16 @@ public class EventService {
         eventRepository.save(updatedEvent);
     }
 
-    public void addEvent(Event newEvent){
+    public Long addEvent(Event newEvent){
         eventRepository.save(newEvent);
+        return newEvent.getEventId();
     }
 
     public void deleteEvent(Long eventId){
         eventRepository.deleteById(eventId);
+    }
+
+    public List<Event> findByOrganizerUserId(Long organizerId) {
+        return eventRepository.findByOrganizerUserId(organizerId);
     }
 }

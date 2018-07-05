@@ -1,5 +1,7 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,12 +15,12 @@ public class Organizer extends User{
     private String organizerPhone;
 
     @OneToMany(targetEntity = Event.class, mappedBy = "organizer")
-    private List events;
+    @JsonIgnore
+    private List<Event> events;
 
     public Organizer(){}
 
-    public Organizer(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
-                     List events) {
+    public Organizer(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone) {
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
         this.organizerAddress = organizerAddress;
@@ -27,7 +29,7 @@ public class Organizer extends User{
     }
 
     public Organizer(String userName, String userPassword, String organizerName, String organizerEmail,
-                     String organizerAddress, String organizerPhone, List events) {
+                     String organizerAddress, String organizerPhone) {
         super(userName, userPassword);
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
