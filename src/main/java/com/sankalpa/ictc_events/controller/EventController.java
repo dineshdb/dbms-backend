@@ -1,7 +1,6 @@
 package com.sankalpa.ictc_events.controller;
 
 import com.sankalpa.ictc_events.model.Event;
-import com.sankalpa.ictc_events.service.AdminService;
 import com.sankalpa.ictc_events.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +24,13 @@ public class EventController {
     }
 
     @PostMapping("/events")
-    public void addEvent(@RequestBody Event event){
-        eventService.addEvent(event);
+    public @ResponseBody Event addEvent(@RequestBody Event event){
+        return eventService.addEvent(event);
     }
 
-    @PutMapping("/events/{eventId}")
-    public void updateEvent(@RequestBody Event updatedEvent,
-                            @PathVariable Long eventId){
-        eventService.updateEvent(eventId, updatedEvent);
+    @PutMapping("/events")
+    public @ResponseBody Event updateEvent(@RequestBody Event updatedEvent){
+        return eventService.updateEvent(updatedEvent);
     }
 
     @DeleteMapping("/events/{eventId}")

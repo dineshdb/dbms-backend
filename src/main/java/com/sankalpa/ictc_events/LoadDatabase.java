@@ -22,12 +22,12 @@ public class LoadDatabase implements CommandLineRunner {
 
     @Autowired
     private RoomRepository roomRepository;
-
-    @Autowired
-    private OrganizerRepository organizerRepository;
-
-    @Autowired
-    private EventRepository eventRepository;
+//
+//    @Autowired
+//    private OrganizerRepository organizerRepository;
+//
+//    @Autowired
+//    private EventRepository eventRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -53,20 +53,21 @@ public class LoadDatabase implements CommandLineRunner {
 
         roomRepository.save(new Room("Computer 5", 30, 3, "Computer", 18000, 0, 600));
         roomRepository.save(new Room("Computer 6", 30, 3, "Computer", 18000, 0, 600));
-
+        roomRepository.save(new Room("Language Lab 7", 30, 3, "Computer", 14000, 2000, 0));
+        roomRepository.save(new Room("Computer 8", 30, 3, "Computer", 18000, 0, 600));
 
         roomRepository.save(new Room("Seminar 1", 60, 4, "Seminar", 7500, 1200, 0));
         roomRepository.save(new Room("Seminar 2", 60, 4, "Seminar", 7500, 1200, 0));
 
-        // organizers
-        organizerRepository.save(new Organizer("bhusal", "bhusal505", "Anish Bhusal",
-                "bhusal@anish.com", "Buddhanagar", "9845327392"));
-
-        // events
-        eventRepository.save(new Event("Big Data Workshop", "An introduction to big data and its application", 60, 3, 0));
-        eventRepository.save(new Event("KiCAD Training", "An indepth intro to KiCAD", 50, 1, 0));
-        eventRepository.save(new Event("NMB Exam", "Examination", 100, 1, 0));
-        eventRepository.save(new Event("DBMS", "Lecture class for DBMS", 48, 1, 0));
+//        // organizers
+//        organizerRepository.save(new Organizer("bhusal", "bhusal505", "Anish Bhusal",
+//                "bhusal@anish.com", "Buddhanagar", "9845327392"));
+//
+//        // events
+//        eventRepository.save(new Event("Big Data Workshop", "An introduction to big data and its application", 60, 3, 0));
+//        eventRepository.save(new Event("KiCAD Training", "An indepth intro to KiCAD", 50, 1, 0));
+//        eventRepository.save(new Event("NMB Exam", "Examination", 100, 1, 0));
+//        eventRepository.save(new Event("DBMS", "Lecture class for DBMS", 48, 1, 0));
 
     }
 }

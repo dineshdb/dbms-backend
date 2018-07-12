@@ -1,12 +1,15 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "roomId", scope = Room.class)
 public class Room {
 
     @Id
@@ -22,14 +25,8 @@ public class Room {
     private int costPerHour;
     private int costPerUnit;
 
-
-    // TODO: again @JsonIgnore to the rescue to avoid stackoverflow
-    @ManyToMany(targetEntity = EventSection.class)  // room is the source column
-    @JoinTable(name = "EventSection_Room",
-            joinColumns = @JoinColumn(name = "Room_Id"),
-            inverseJoinColumns = @JoinColumn(name = "EventSection_Id"))
-    @JsonIgnore
-    private List<EventSection> eventSections;
+//    @ManyToMany(targetEntity = EventSection.class, mappedBy = "rooms")
+//    private List<EventSection> eventSections;
 
     public Room(){}
 
@@ -108,19 +105,19 @@ public class Room {
         this.costPerUnit = costPerUnit;
     }
 
-    public List<EventSection> getEventSections() {
-        return eventSections;
-    }
-
-    public void setEventSections(List<EventSection> eventSections) {
-        this.eventSections = eventSections;
-    }
-
-    public void addEventSection(EventSection eventSection){
-        List<EventSection> eventSections = getEventSections();
-        if (eventSections == null){
-            eventSections = new ArrayList<>();
-        }
-        eventSections.add(eventSection);
-    }
+//    public List<EventSection> getEventSections() {
+//        return eventSections;
+//    }
+//
+//    public void setEventSections(List<EventSection> eventSections) {
+//        this.eventSections = eventSections;
+//    }
+//
+//    public void addEventSection(EventSection eventSection){
+//        List<EventSection> eventSections = getEventSections();
+//        if (eventSections == null){
+//            eventSections = new ArrayList<>();
+//        }
+//        eventSections.add(eventSection);
+//    }
 }

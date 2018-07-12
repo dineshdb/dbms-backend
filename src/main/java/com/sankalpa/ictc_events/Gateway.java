@@ -12,17 +12,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @RestController
-@EnableWebMvc
+//@EnableWebMvc
 @SpringBootApplication
-public class Gateway implements WebMvcConfigurer {
+public class Gateway /*implements WebMvcConfigurer*/ {
 
 	public static void main(String[] args) {
 		//SpringApplication.setWebApplicationType(WebApplicationType.REACTIVE);
 		SpringApplication.run(Gateway.class, args);
 	}
-
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-	}
+//
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+//	}
 }

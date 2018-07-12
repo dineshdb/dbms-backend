@@ -1,12 +1,15 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "eventId", scope = Event.class)
 public class Event  {
 
     @Id
@@ -25,66 +28,119 @@ public class Event  {
     private LocalDate eventStartDate;
     private LocalDate eventEndDate;
 
-    private int accepted;
+    private String organizerName;
+    private String organizerEmail;
+    private String organizerAddress;
+    private String organizerPhone;
 
-    @ManyToOne
-    private Admin admin;
+//    private int accepted;
 
-    @ManyToOne
-    private Organizer organizer;
+//    @ManyToOne
+//    private Admin admin;
 
-    @OneToMany(mappedBy = "event", targetEntity = EventSection.class)
-    @JsonIgnore
+//    @ManyToOne
+//    private Organizer organizer;
+
+    @OneToMany(mappedBy = "event", targetEntity = EventSection.class, cascade = CascadeType.ALL)
     private List<EventSection> eventSections;
 
     public Event(){}
 
     public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, int accepted) {
+                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, String organizerName,
+                 String organizerEmail, String organizerAddress, String organizerPhone) {
+
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.eventDurationInDays = eventDurationInDays;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
-        this.accepted = accepted;
+        this.organizerName = organizerName;
+        this.organizerEmail = organizerEmail;
+        this.organizerAddress = organizerAddress;
+        this.organizerPhone = organizerPhone;
     }
 
-    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted) {
-        this.eventName = eventName;
-        this.eventDescription = eventDescription;
-        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-        this.eventDurationInDays = eventDurationInDays;
-        this.eventStartDate = eventStartDate;
-        this.eventEndDate = eventEndDate;
-        this.accepted = accepted;
+    //    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+//                 int eventDurationInDays, int accepted) {
+//        this.eventName = eventName;
+//        this.eventDescription = eventDescription;
+//        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+//        this.eventDurationInDays = eventDurationInDays;
+//        this.eventStartDate = eventStartDate;
+//        this.eventEndDate = eventEndDate;
+////        this.accepted = accepted;
+//    }
+//
+//    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+//                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted) {
+//        this.eventName = eventName;
+//        this.eventDescription = eventDescription;
+//        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+//        this.eventDurationInDays = eventDurationInDays;
+//        this.eventStartDate = eventStartDate;
+//        this.eventEndDate = eventEndDate;
+////        this.accepted = accepted;
+//    }
+
+
+
+//    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
+//                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted,
+//                 Admin admin, Organizer organizer, List eventSections) {
+//        this.eventName = eventName;
+//        this.eventDescription = eventDescription;
+//        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+//        this.eventDurationInDays = eventDurationInDays;
+//        this.eventStartDate = eventStartDate;
+//        this.eventEndDate = eventEndDate;
+////        this.accepted = accepted;
+//        this.admin = admin;
+//        this.organizer = organizer;
+//        this.eventSections = eventSections;
+//    }
+
+
+    public String getOrganizerName() {
+        return organizerName;
     }
 
-
-
-    public Event(String eventName, String eventDescription, int expectedNumberOfParticipants,
-                 int eventDurationInDays, LocalDate eventStartDate, LocalDate eventEndDate, int accepted,
-                 Admin admin, Organizer organizer, List eventSections) {
-        this.eventName = eventName;
-        this.eventDescription = eventDescription;
-        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-        this.eventDurationInDays = eventDurationInDays;
-        this.eventStartDate = eventStartDate;
-        this.eventEndDate = eventEndDate;
-        this.accepted = accepted;
-        this.admin = admin;
-        this.organizer = organizer;
-        this.eventSections = eventSections;
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public String getOrganizerEmail() {
+        return organizerEmail;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setOrganizerEmail(String organizerEmail) {
+        this.organizerEmail = organizerEmail;
     }
+
+    public String getOrganizerAddress() {
+        return organizerAddress;
+    }
+
+    public void setOrganizerAddress(String organizerAddress) {
+        this.organizerAddress = organizerAddress;
+    }
+
+    public String getOrganizerPhone() {
+        return organizerPhone;
+    }
+
+    public void setOrganizerPhone(String organizerPhone) {
+        this.organizerPhone = organizerPhone;
+    }
+
+//    public Admin getAdmin() {
+//        return admin;
+//    }
+//
+//    public void setAdmin(Admin admin) {
+//        this.admin = admin;
+//    }
 
     public LocalDate getEventStartDate() {
         return eventStartDate;
@@ -102,13 +158,13 @@ public class Event  {
         this.eventEndDate = eventEndDate;
     }
 
-    public int getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(int accepted) {
-        this.accepted = accepted;
-    }
+//    public int getAccepted() {
+//        return accepted;
+//    }
+//
+//    public void setAccepted(int accepted) {
+//        this.accepted = accepted;
+//    }
 
     public int getEventDurationInDays() {
         return eventDurationInDays;
@@ -150,13 +206,14 @@ public class Event  {
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
     }
 
-    public Organizer getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(Organizer organizer) {
-        this.organizer = organizer;
-    }
+//
+//    public Organizer getOrganizer() {
+//        return organizer;
+//    }
+//
+//    public void setOrganizer(Organizer organizer) {
+//        this.organizer = organizer;
+//    }
 
     public List getEventSections() {
         return eventSections;

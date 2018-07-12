@@ -17,21 +17,21 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    @Autowired
-    private EventService eventService;
+//    @Autowired
+//    private EventService eventService;
 
     public List<Admin> getAllAdmins(){
-        List<Admin> admins = new ArrayList<Admin>();
+        List<Admin> admins = new ArrayList<>();
         adminRepository.findAll().forEach(admins::add);
         return admins;
     }
 
-    public void updateAdmin(Long adminId, Admin updatedAdmin){
-        adminRepository.save(updatedAdmin);
+    public Admin updateAdmin(Admin updatedAdmin){
+        return adminRepository.save(updatedAdmin);
     }
 
-    public void addAdmin(Admin newAdmin){
-        adminRepository.save(newAdmin);
+    public Admin addAdmin(Admin newAdmin){
+        return adminRepository.save(newAdmin);
     }
 
     public void deleteAdmin(Long adminId){
@@ -42,14 +42,16 @@ public class AdminService {
         return adminRepository.findById(adminId).orElse(null);
     }
 
-    public void approveEvent(Long eventId, Long adminId) {
 
-        Admin admin = getAdmin(adminId);
-        Event event = eventService.getEvent(eventId);
-
-        event.setAccepted(1);
-        event.setAdmin(admin);
-
-        eventService.updateEvent(eventId, event);
-    }
+    // TODO: no need to approve event as admin is the only user controlling the events;
+//    public void approveEvent(Long eventId, Long adminId) {
+//
+//        Admin admin = getAdmin(adminId);
+//        Event event = eventService.getEvent(eventId);
+//
+//        event.setAccepted(1);
+//        event.setAdmin(admin);
+//
+//        eventService.updateEvent(eventId, event);
+//    }
 }

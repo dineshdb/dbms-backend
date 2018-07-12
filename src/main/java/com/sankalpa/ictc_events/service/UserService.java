@@ -36,12 +36,12 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
-    public void addUser(User newUser){
-        userRepository.save(newUser);
+    public User addUser(User newUser){
+        return userRepository.save(newUser);
     }
 
-    public void updateUser(Long userId, User updatedUser){
-        userRepository.save(updatedUser);
+    public User updateUser(User updatedUser){
+        return userRepository.save(updatedUser);
     }
 
     public void deleteUser(Long userId){

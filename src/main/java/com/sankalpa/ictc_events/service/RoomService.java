@@ -24,12 +24,12 @@ public class RoomService {
         return roomRepository.findById(roomId).orElse(null);
     }
 
-    public void addRoom(Room room){
-        roomRepository.save(room);
+    public Room addRoom(Room room){
+        return roomRepository.save(room);
     }
 
-    public void updateRoom(Long roomId, Room updatedRoom){
-        roomRepository.save(updatedRoom);
+    public Room updateRoom(Room updatedRoom){
+        return roomRepository.save(updatedRoom);
     }
 
     public void deleteRoom(Long roomId){

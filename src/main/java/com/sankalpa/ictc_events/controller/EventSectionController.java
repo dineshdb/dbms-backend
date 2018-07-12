@@ -2,6 +2,8 @@ package com.sankalpa.ictc_events.controller;
 
 import com.sankalpa.ictc_events.model.DateString;
 import com.sankalpa.ictc_events.model.EventSection;
+import com.sankalpa.ictc_events.model.FindRoomHelper;
+import com.sankalpa.ictc_events.model.Room;
 import com.sankalpa.ictc_events.service.EventSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,25 +28,22 @@ public class EventSectionController {
     }
 
     @PostMapping("/eventSections")
-    public void addEventSection(@RequestBody EventSection newEventSection){
-        eventSectionService.addEventSection(newEventSection);
+    public @ResponseBody EventSection addEventSection(@RequestBody EventSection newEventSection){
+        return eventSectionService.addEventSection(newEventSection);
     }
 
-    @PutMapping("/eventSections/{eventSectionId}")
-    public void updateEventSection(@PathVariable Long eventSectionId,
-                                   @RequestBody EventSection updatedEventSection){
-        eventSectionService.updateEventSection(eventSectionId, updatedEventSection);
+    @PutMapping("/eventSections")
+    public @ResponseBody EventSection updateEventSection(@RequestBody EventSection updatedEventSection){
+        return eventSectionService.updateEventSection(updatedEventSection);
     }
 
     @DeleteMapping("/eventSections/{eventSectionId}")
     public void deleteEventSection(@PathVariable Long eventSectionId){
         eventSectionService.deleteEvenSection(eventSectionId);
     }
-
-
-    // TODO: return a boolean[][] array instead of a list of EventSection
-    @PostMapping("/eventSections/findByDate")
-    public @ResponseBody boolean[][] filterByEventSectionDate(@RequestBody DateString dateString){
-        return eventSectionService.filterByEventSectionDate(dateString);
-    }
+//    // TODO: return a boolean[][] array instead of a list of EventSection
+//    @PostMapping("/eventSections/findByDate")
+//    public @ResponseBody boolean[][] filterByEventSectionDate(@RequestBody DateString dateString){
+//        return eventSectionService.filterByEventSectionDate(dateString);
+//    }
 }
