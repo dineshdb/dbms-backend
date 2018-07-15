@@ -74,4 +74,11 @@ public class UtilRepository {
                 .setParameter(1, date)
                 .getResultList();
     }
+
+    public List<Event> findEventsByEventName(String eventName){
+        return (List<Event>) em.createQuery("select e from Event e where upper(e.eventName) " +
+                "like concat('%', upper(?1), '%')")
+                .setParameter(1, eventName)
+                .getResultList();
+    }
 }

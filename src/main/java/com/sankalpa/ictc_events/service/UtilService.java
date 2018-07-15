@@ -180,4 +180,9 @@ public class UtilService {
         List<Event> events = utilRepository.findEventsHappeningAtDate(date.getDate());
         return mapperHelper(events);
     }
+
+    public List<IdMapper> findEventsByEventName(String name) {
+        List<Event> events = utilRepository.findEventsByEventName(name);
+        return mapperHelper(events);
+    }
 }

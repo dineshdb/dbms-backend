@@ -53,4 +53,9 @@ public class UtilController {
     public @ResponseBody List<IdMapper> findEventsByOrganizerName(@RequestBody CustomName name){
         return utilService.findEventsByOrganizerName(name.getName());
     }
+
+    @PostMapping("/findEventsByEventName")
+    public @ResponseBody List<IdMapper> findEventsByEventName(@RequestBody CustomName eventName){
+        return utilService.findEventsByEventName(eventName.getName());
+    }
 }
