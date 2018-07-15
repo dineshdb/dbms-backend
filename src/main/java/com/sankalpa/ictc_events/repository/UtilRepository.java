@@ -22,9 +22,9 @@ public class UtilRepository {
 
     public List<Room> findRooms(FindRoomHelper findRoomHelper){
 
-        LocalDate date = findRoomHelper.getEventSectionDate();
-        LocalTime startTime = findRoomHelper.getEventSectionStartTime();
-        LocalTime endTime = findRoomHelper.getEventSectionEndTime();
+        LocalDate date = LocalDate.parse(findRoomHelper.getEventSectionDate());
+        LocalTime startTime = LocalTime.parse(findRoomHelper.getEventSectionStartTime());
+        LocalTime endTime = LocalTime.parse(findRoomHelper.getEventSectionEndTime());
         List<Room> rooms = new ArrayList<>();
         List<EventSection> eventSectionsWithin = new ArrayList<>();
 
