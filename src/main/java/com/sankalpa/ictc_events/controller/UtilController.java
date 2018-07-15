@@ -44,6 +44,11 @@ public class UtilController {
         return utilService.findEventsStartingAtDate(date);
     }
 
+    @PostMapping("/findEventsHappeningAtDate")
+    public @ResponseBody List<IdMapper> findEventsHappeningAtDate(@RequestBody CustomDate date){
+        return utilService.findEventsHappeningAtDate(date);
+    }
+
     @PostMapping("/findEventsByOrganizerName")
     public @ResponseBody List<IdMapper> findEventsByOrganizerName(@RequestBody CustomName name){
         return utilService.findEventsByOrganizerName(name.getName());

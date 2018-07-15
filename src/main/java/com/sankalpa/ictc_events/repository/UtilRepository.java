@@ -30,7 +30,8 @@ public class UtilRepository {
 
         // TODO: check if this works
         eventSectionsWithin.addAll((List<EventSection>) em.createQuery("select e from EventSection e where e.eventSectionDate=?1 " +
-                "and ((e.eventSectionStartTime between ?2 and ?3) or (e.eventSectionEndTime between ?2 and ?3))")
+                "and ((e.eventSectionStartTime between ?2 and ?3) or (e.eventSectionEndTime between ?2 and ?3) " +
+                "or ((?2 >= e.eventSectionStartTime) and (?3 <= e.eventSectionEndTime)))")
                 .setParameter(1, date)
                 .setParameter(2, startTime)
                 .setParameter(3, endTime)
@@ -64,6 +65,13 @@ public class UtilRepository {
         return (List<Event>) em.createQuery("select e from Event e where upper(e.organizerName) " +
                 "like concat('%', upper(?1), '%')")
                 .setParameter(1, organizerName)
+                .getResultList();
+    }
+
+    public List<Event> findEventsHappeningAtDate(LocalDate date) {
+        return (List<Event>) em.createQuery("select e from Event e where ?1>=e.eventStartDate and " +
+                "?1<=eventEndDate")
+                .setParameter(1, date)
                 .getResultList();
     }
 }

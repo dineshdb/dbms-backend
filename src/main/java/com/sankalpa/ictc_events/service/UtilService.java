@@ -175,4 +175,9 @@ public class UtilService {
         List<Event> events = utilRepository.findEventsByOrganizerName(organizerName);
         return mapperHelper(events);
     }
+
+    public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
+        List<Event> events = utilRepository.findEventsHappeningAtDate(date.getDate());
+        return mapperHelper(events);
+    }
 }
