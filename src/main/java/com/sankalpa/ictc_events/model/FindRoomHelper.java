@@ -5,57 +5,57 @@ import java.time.LocalTime;
 
 public class FindRoomHelper {
 
-    private LocalDate eventSectionDate;
-    private LocalTime eventSectionStartTime;
-    private LocalTime eventSectionEndTime;
+    private String eventSectionDate;
+    private String eventSectionStartTime;
+    private String eventSectionEndTime;
 
     public FindRoomHelper(){}
 
-    public FindRoomHelper(LocalDate eventSectionDate, LocalTime eventSectionStartTime, LocalTime eventSectionEndTime) {
+    public FindRoomHelper(String eventSectionDate, String eventSectionStartTime, String eventSectionEndTime) {
         this.eventSectionDate = eventSectionDate;
         this.eventSectionStartTime = eventSectionStartTime;
         this.eventSectionEndTime = eventSectionEndTime;
     }
 
-    public FindRoomHelper(String eventSectionDate, String eventSectionStartTime, String eventSectionEndTime) {
-        this.eventSectionDate = LocalDate.parse(eventSectionDate);
-        this.eventSectionStartTime = LocalTime.parse(eventSectionStartTime);
-        this.eventSectionEndTime = LocalTime.parse(eventSectionEndTime);
-    }
+//    public FindRoomHelper(String eventSectionDate, String eventSectionStartTime, String eventSectionEndTime) {
+//        this.eventSectionDate = LocalDate.parse(eventSectionDate);
+//        this.eventSectionStartTime = LocalTime.parse(eventSectionStartTime);
+//        this.eventSectionEndTime = LocalTime.parse(eventSectionEndTime);
+//    }
 
-    public LocalDate getEventSectionDate() {
+    public String getEventSectionDate() {
         return eventSectionDate;
     }
 
-    public void setEventSectionDate(LocalDate eventSectionDate) {
+    public void setEventSectionDate(String eventSectionDate) {
         this.eventSectionDate = eventSectionDate;
     }
 
-    public void setEventSectionDate(String eventSectionDate) {
-        this.eventSectionDate = LocalDate.parse(eventSectionDate);
-    }
+//    public void setEventSectionDate(String eventSectionDate) {
+//        this.eventSectionDate = LocalDate.parse(eventSectionDate);
+//    }
 
-    public LocalTime getEventSectionStartTime() {
+    public String getEventSectionStartTime() {
         return eventSectionStartTime;
     }
 
-    public void setEventSectionStartTime(LocalTime eventSectionStartTime) {
+    public void setEventSectionStartTime(String eventSectionStartTime) {
         this.eventSectionStartTime = eventSectionStartTime;
     }
 
-    public void setEventSectionStartTime(String eventSectionStartTime) {
-        this.eventSectionStartTime = LocalTime.parse(eventSectionStartTime);
-    }
+//    public void setEventSectionStartTime(String eventSectionStartTime) {
+//        this.eventSectionStartTime = LocalTime.parse(eventSectionStartTime);
+//    }
 
-    public LocalTime getEventSectionEndTime() {
+    public String getEventSectionEndTime() {
         return eventSectionEndTime;
     }
 
-    public void setEventSectionEndTime(LocalTime eventSectionEndTime) {
+    public void setEventSectionEndTime(String eventSectionEndTime) {
         this.eventSectionEndTime = eventSectionEndTime;
     }
 
-    public void setEventSectionEndTime(String eventSectionEndTime) {
-        this.eventSectionEndTime = LocalTime.parse(eventSectionEndTime);
-    }
+//    public void setEventSectionEndTime(String eventSectionEndTime) {
+//        this.eventSectionEndTime = LocalTime.parse(eventSectionEndTime);
+//    }
 }

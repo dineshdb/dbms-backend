@@ -31,9 +31,10 @@ public class UtilService {
     public Event saveEvent(EventInfo eventInfo) {
         Event event = eventService.addEvent(
                 new Event(eventInfo.getEventName(), eventInfo.getEventDescription(),
-                eventInfo.getExpectedNumberOfParticipants(), eventInfo.getEventDurationInDays(),
-                eventInfo.getEventStartDate(), eventInfo.getEventEndDate(), eventInfo.getOrganizerName(),
-                eventInfo.getOrganizerEmail(), eventInfo.getOrganizerAddress(), eventInfo.getOrganizerPhone())
+                        eventInfo.getExpectedNumberOfParticipants(), eventInfo.getEventDurationInDays(),
+                        LocalDate.parse(eventInfo.getEventStartDate()), LocalDate.parse(eventInfo.getEventEndDate()),
+                        eventInfo.getOrganizerName(), eventInfo.getOrganizerEmail(), eventInfo.getOrganizerAddress(),
+                        eventInfo.getOrganizerPhone())
         );
 
         List<PerDayInfo> perDayInfoList = eventInfo.getPerDayInfoList();
@@ -41,7 +42,7 @@ public class UtilService {
 
         for (PerDayInfo p : perDayInfoList){
 
-            LocalDate date = p.getDate();
+            LocalDate date = LocalDate.parse(p.getDate());
             List<TimeSlot> timeSlots = p.getTimeSlotList();
 
             for (TimeSlot t : timeSlots) {
@@ -120,9 +121,10 @@ public class UtilService {
 
         for (Event event : events){
             IdMapper mapper = new IdMapper();
-            EventInfo eventInfo = new EventInfo(event.getOrganizerName(), event.getOrganizerEmail(), event.getOrganizerAddress(),
-                    event.getOrganizerPhone(), event.getEventName(), event.getEventDescription(), event.getEventDurationInDays(),
-                    event.getEventStartDate(), event.getEventEndDate(), event.getExpectedNumberOfParticipants());
+            EventInfo eventInfo = new EventInfo(event.getOrganizerName(), event.getOrganizerEmail(),
+                    event.getOrganizerAddress(), event.getOrganizerPhone(), event.getEventName(),
+                    event.getEventDescription(), event.getEventDurationInDays(), event.getEventStartDate().toString(),
+                    event.getEventEndDate().toString(), event.getExpectedNumberOfParticipants());
 
             mapper.setEventId(event.getEventId());
 
@@ -131,7 +133,7 @@ public class UtilService {
 
             while (eventSections.size() != 0){
 
-                PerDayInfo pdi = new PerDayInfo(eventSections.get(0).getEventSectionDate());
+                PerDayInfo pdi = new PerDayInfo(eventSections.get(0).getEventSectionDate().toString());
                 List<TimeSlot> slots = new ArrayList<>();
 
                 for (int j = 0; j < eventSections.size(); j++){
@@ -170,7 +172,7 @@ public class UtilService {
 
     // returns a list of IdMapper<eventId,EventInfo> that start at a specific 'date'
     public List<IdMapper> findEventsStartingAtDate(CustomDate date) {
-        List<Event> events = utilRepository.findEventsStartingAtDate(date.getDate());
+        List<Event> events = utilRepository.findEventsStartingAtDate(LocalDate.parse(date.getDate()));
         return mapperHelper(events);
     }
 
@@ -180,7 +182,7 @@ public class UtilService {
     }
 
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
-        List<Event> events = utilRepository.findEventsHappeningAtDate(date.getDate());
+        List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date.getDate()));
         return mapperHelper(events);
     }
 

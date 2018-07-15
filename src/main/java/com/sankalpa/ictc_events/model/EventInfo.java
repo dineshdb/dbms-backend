@@ -15,8 +15,8 @@ public class EventInfo {
     private String eventName;
     private String eventDescription;
     private int eventDurationInDays;
-    private LocalDate eventStartDate;
-    private LocalDate eventEndDate;
+    private String eventStartDate;
+    private String eventEndDate;
     private int expectedNumberOfParticipants;
 
     private List<PerDayInfo> perDayInfoList;
@@ -24,8 +24,8 @@ public class EventInfo {
     public EventInfo(){}
 
     public EventInfo(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
-                     String eventName, String eventDescription, int eventDurationInDays, LocalDate eventStartDate,
-                     LocalDate eventEndDate, int expectedNumberOfParticipants, List<PerDayInfo> perDayInfoList) {
+                     String eventName, String eventDescription, int eventDurationInDays, String eventStartDate,
+                     String eventEndDate, int expectedNumberOfParticipants, List<PerDayInfo> perDayInfoList) {
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
         this.organizerAddress = organizerAddress;
@@ -38,26 +38,26 @@ public class EventInfo {
         this.expectedNumberOfParticipants = expectedNumberOfParticipants;
         this.perDayInfoList = perDayInfoList;
     }
+//
+//    public EventInfo(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
+//                     String eventName, String eventDescription, int eventDurationInDays, String eventStartDate,
+//                     String eventEndDate, int expectedNumberOfParticipants, List<PerDayInfo> perDayInfoList) {
+//        this.organizerName = organizerName;
+//        this.organizerEmail = organizerEmail;
+//        this.organizerAddress = organizerAddress;
+//        this.organizerPhone = organizerPhone;
+//        this.eventName = eventName;
+//        this.eventDescription = eventDescription;
+//        this.eventDurationInDays = eventDurationInDays;
+//        this.eventStartDate = LocalDate.parse(eventStartDate);
+//        this.eventEndDate = LocalDate.parse(eventEndDate);;
+//        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
+//        this.perDayInfoList = perDayInfoList;
+//    }
 
     public EventInfo(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
                      String eventName, String eventDescription, int eventDurationInDays, String eventStartDate,
-                     String eventEndDate, int expectedNumberOfParticipants, List<PerDayInfo> perDayInfoList) {
-        this.organizerName = organizerName;
-        this.organizerEmail = organizerEmail;
-        this.organizerAddress = organizerAddress;
-        this.organizerPhone = organizerPhone;
-        this.eventName = eventName;
-        this.eventDescription = eventDescription;
-        this.eventDurationInDays = eventDurationInDays;
-        this.eventStartDate = LocalDate.parse(eventStartDate);
-        this.eventEndDate = LocalDate.parse(eventEndDate);;
-        this.expectedNumberOfParticipants = expectedNumberOfParticipants;
-        this.perDayInfoList = perDayInfoList;
-    }
-
-    public EventInfo(String organizerName, String organizerEmail, String organizerAddress, String organizerPhone,
-                     String eventName, String eventDescription, int eventDurationInDays, LocalDate eventStartDate,
-                     LocalDate eventEndDate, int expectedNumberOfParticipants) {
+                     String eventEndDate, int expectedNumberOfParticipants) {
         this.organizerName = organizerName;
         this.organizerEmail = organizerEmail;
         this.organizerAddress = organizerAddress;
@@ -126,28 +126,24 @@ public class EventInfo {
         this.eventDurationInDays = eventDurationInDays;
     }
 
-    public LocalDate getEventStartDate() {
+    public String getEventStartDate() {
         return eventStartDate;
     }
 
-    public void setEventStartDate(LocalDate eventStartDate) {
+    public void setEventStartDate(String eventStartDate) {
         this.eventStartDate = eventStartDate;
     }
 
-    public void setEventStartDate(String eventStartDate) {
-        this.eventStartDate = LocalDate.parse(eventStartDate);
-    }
-
-    public LocalDate getEventEndDate() {
+    public String getEventEndDate() {
         return eventEndDate;
     }
 
-    public void setEventEndDate(LocalDate eventEndDate) {
-        this.eventEndDate = eventEndDate;
-    }
+//    public void setEventEndDate(LocalDate eventEndDate) {
+//        this.eventEndDate = eventEndDate;
+//    }
 
     public void setEventEndDate(String eventEndDate) {
-        this.eventEndDate = LocalDate.parse(eventEndDate);
+        this.eventEndDate = eventEndDate;
     }
 
     public int getExpectedNumberOfParticipants() {

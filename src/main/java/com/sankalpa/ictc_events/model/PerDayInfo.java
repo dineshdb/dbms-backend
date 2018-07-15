@@ -8,36 +8,36 @@ import java.util.List;
 
 public class PerDayInfo {
 
-    private LocalDate date;
+    private String date;
     private List<TimeSlot> timeSlotList;
 
     public PerDayInfo(){}
 
-    public PerDayInfo(LocalDate date){
+    public PerDayInfo(String date){
         this.date = date;
     }
 
     public PerDayInfo(String date, List<TimeSlot> timeSlotList) {
-        this.date = LocalDate.parse(date);
-        this.timeSlotList = timeSlotList;
-    }
-
-    public PerDayInfo(LocalDate date, List<TimeSlot> timeSlotList) {
         this.date = date;
         this.timeSlotList = timeSlotList;
     }
 
-    public LocalDate getDate() {
+//    public PerDayInfo(String date, List<TimeSlot> timeSlotList) {
+//        this.date = date;
+//        this.timeSlotList = timeSlotList;
+//    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setDate(String date) {
-        this.date = LocalDate.parse(date);
-    }
+//    public void setDate(String date) {
+//        this.date = LocalDate.parse(date);
+//    }
 
     public List<TimeSlot> getTimeSlotList() {
         return timeSlotList;
