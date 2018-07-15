@@ -1,8 +1,6 @@
 package com.sankalpa.ictc_events.repository;
 
-import com.sankalpa.ictc_events.model.EventSection;
-import com.sankalpa.ictc_events.model.FindRoomHelper;
-import com.sankalpa.ictc_events.model.Room;
+import com.sankalpa.ictc_events.model.*;
 import org.hibernate.event.spi.EvictEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -54,5 +52,18 @@ public class UtilRepository {
         }
 
         return rooms;
+    }
+
+    public List<Event> findEventsStartingAtDate(LocalDate date) {
+        return (List<Event>) em.createQuery("select e from Event e where e.eventStartDate=?1")
+                .setParameter(1, date)
+                .getResultList();
+    }
+
+    public List<Event> findEventsByOrganizerName(String organizerName) {
+        return (List<Event>) em.createQuery("select e from Event e where upper(e.organizerName) " +
+                "like concat('%', upper(?1), '%')")
+                .setParameter(1, organizerName)
+                .getResultList();
     }
 }

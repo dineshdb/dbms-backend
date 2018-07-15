@@ -5,6 +5,7 @@ import com.sankalpa.ictc_events.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,18 @@ public class UtilController {
         return utilService.showAllEvents();
     }
 
-    @DeleteMapping("/deleteEvent/{eventId}")
+    @PostMapping("/deleteEvent/{eventId}")
     public void deleteEvent(@PathVariable Long eventId){
         utilService.deleteEvent(eventId);
+    }
+
+    @PostMapping("/findEventsStartingAtDate")
+    public @ResponseBody List<IdMapper> findEventsStartingAtDate(@RequestBody CustomDate date){
+        return utilService.findEventsStartingAtDate(date);
+    }
+
+    @PostMapping("/findEventsByOrganizerName")
+    public @ResponseBody List<IdMapper> findEventsByOrganizerName(@RequestBody CustomName name){
+        return utilService.findEventsByOrganizerName(name.getName());
     }
 }

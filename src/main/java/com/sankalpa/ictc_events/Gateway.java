@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @RestController
 //@EnableWebMvc
 @SpringBootApplication
-public class Gateway /*implements WebMvcConfigurer*/ {
+public class Gateway /*implements WebMvcConfigurer*/{
 
 	public static void main(String[] args) {
 		//SpringApplication.setWebApplicationType(WebApplicationType.REACTIVE);

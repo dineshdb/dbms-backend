@@ -113,8 +113,8 @@ public class UtilService {
 //        return event;
     }
 
-    public List<IdMapper> showAllEvents() {
-        List<Event> events = eventService.getAllEvents();
+    public List<IdMapper> mapperHelper(List<Event> events){
+
         List<IdMapper> mappers = new ArrayList<>();
 
         for (Event event : events){
@@ -152,11 +152,27 @@ public class UtilService {
             mapper.setEventInfo(eventInfo);
             mappers.add(mapper);
         }
-
         return mappers;
+
+    }
+
+    public List<IdMapper> showAllEvents() {
+        List<Event> events = eventService.getAllEvents();
+        return mapperHelper(events);
     }
 
     public void deleteEvent(Long eventId) {
         eventService.deleteEvent(eventId);
+    }
+
+    // returns a list of IdMapper<eventId,EventInfo> that start at a specific 'date'
+    public List<IdMapper> findEventsStartingAtDate(CustomDate date) {
+        List<Event> events = utilRepository.findEventsStartingAtDate(date.getDate());
+        return mapperHelper(events);
+    }
+
+    public List<IdMapper> findEventsByOrganizerName(String organizerName){
+        List<Event> events = utilRepository.findEventsByOrganizerName(organizerName);
+        return mapperHelper(events);
     }
 }
