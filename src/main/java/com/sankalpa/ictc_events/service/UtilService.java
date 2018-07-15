@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class UtilService {
 
             for (TimeSlot t : timeSlots) {
                 EventSection eventSection = eventSectionService.addEventSection(
-                        new EventSection(date, t.getStartingTime(), t.getEndingTime())
+                        new EventSection(date, LocalTime.parse(t.getStartingTime()), LocalTime.parse(t.getEndingTime()))
                 );
                 eventSection.setRooms(t.getRooms());
                 eventSection.setEvent(event);
@@ -138,7 +139,9 @@ public class UtilService {
                     if (pdi.getDate().equals(eventSections.get(j).getEventSectionDate())){
                         // remove this eventSection
                         EventSection e = eventSections.get(j);
-                        TimeSlot timeSlot = new TimeSlot(e.getEventSectionStartTime(), e.getEventSectionEndTime(), e.getRooms());
+                        TimeSlot timeSlot = new TimeSlot(e.getEventSectionStartTime().toString(),
+                                e.getEventSectionEndTime().toString(),
+                                e.getRooms());
                         slots.add(timeSlot);
                         eventSections.remove(e);
                     }

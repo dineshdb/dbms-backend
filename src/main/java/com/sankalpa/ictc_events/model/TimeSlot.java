@@ -6,46 +6,62 @@ import java.util.List;
 
 public class TimeSlot {
 
-    private LocalTime startingTime;
-    private LocalTime endingTime;
+//    private LocalTime startingTime;
+//    private LocalTime endingTime;
+    private String startingTime;
+    private String endingTime;
     private List<Room> rooms;
 
     public TimeSlot(){}
 
-    public TimeSlot(String startingTime, String endingTime, List<Room> rooms) {
-        this.startingTime = LocalTime.parse(startingTime);
-        this.endingTime = LocalTime.parse(endingTime);
-        this.rooms = rooms;
-    }
-
-    public TimeSlot(LocalTime startingTime, LocalTime endingTime, List<Room> rooms) {
+    public TimeSlot(String startingTime, String endingTime, List<Room> rooms){
         this.startingTime = startingTime;
         this.endingTime = endingTime;
         this.rooms = rooms;
     }
 
-    public LocalTime getStartingTime() {
-        return startingTime;
+//    public TimeSlot(String startingTime, String endingTime, List<Room> rooms) {
+//        this.startingTime = LocalTime.parse(startingTime);
+//        this.endingTime = LocalTime.parse(endingTime);
+//        this.rooms = rooms;
+//    }
+
+//    public TimeSlot(LocalTime startingTime, LocalTime endingTime, List<Room> rooms) {
+//        this.startingTime = startingTime;
+//        this.endingTime = endingTime;
+//        this.rooms = rooms;
+//    }
+
+    public String getStartingTime() {
+        return startingTime.toString();
     }
 
-    public void setStartingTime(LocalTime startingTime) {
+//    public void setStartingTime(LocalTime startingTime) {
+//        this.startingTime = startingTime;
+//    }
+//
+//    public void setStartingTime(String startingTime) {
+//        this.startingTime = LocalTime.parse(startingTime);
+//    }
+
+    public void setStartingTime(String startingTime){
         this.startingTime = startingTime;
     }
 
-    public void setStartingTime(String startingTime) {
-        this.startingTime = LocalTime.parse(startingTime);
+    public String getEndingTime() {
+        return endingTime.toString();
     }
 
-    public LocalTime getEndingTime() {
-        return endingTime;
-    }
+//    public void setEndingTime(LocalTime endingTime) {
+//        this.endingTime = endingTime;
+//    }
+//
+//    public void setEndingTime(String endingTime) {
+//        this.endingTime = LocalTime.parse(endingTime);
+//    }
 
-    public void setEndingTime(LocalTime endingTime) {
+    public void setEndingTime(String endingTime){
         this.endingTime = endingTime;
-    }
-
-    public void setEndingTime(String endingTime) {
-        this.endingTime = LocalTime.parse(endingTime);
     }
 
     public List<Room> getRooms() {
