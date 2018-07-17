@@ -70,7 +70,7 @@ public class UtilRepository {
 
     public List<Event> findEventsHappeningAtDate(LocalDate date) {
         return (List<Event>) em.createQuery("select e from Event e where ?1>=e.eventStartDate and " +
-                "?1<=eventEndDate")
+                "?1<=e.eventEndDate")
                 .setParameter(1, date)
                 .getResultList();
     }

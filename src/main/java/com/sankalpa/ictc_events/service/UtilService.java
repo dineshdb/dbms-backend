@@ -4,16 +4,22 @@ import com.sankalpa.ictc_events.model.*;
 import com.sankalpa.ictc_events.repository.EventRepository;
 import com.sankalpa.ictc_events.repository.EventSectionRepository;
 import com.sankalpa.ictc_events.repository.UtilRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UtilService {
+
+    final Logger log = LoggerFactory.getLogger(UtilService.class);
 
     @Autowired
     private UtilRepository utilRepository;
@@ -29,10 +35,36 @@ public class UtilService {
     }
 
     public Event saveEvent(EventInfo eventInfo) {
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+
+        if (eventInfo.getEventStartDate() == null && eventInfo.getEventEndDate() == null){
+            // find out the event start and end date from event info
+            List<PerDayInfo> perDayInfoList = eventInfo.getPerDayInfoList();
+            List<LocalDate> dates = new ArrayList<>();
+
+            for (PerDayInfo pdi : perDayInfoList){
+                dates.add(LocalDate.parse(pdi.getDate()));
+            }
+
+            Collections.sort(dates);
+
+            startDate = dates.get(0);
+            endDate = dates.get(dates.size() - 1);
+
+        } else {
+            startDate = LocalDate.parse(eventInfo.getEventStartDate());
+            endDate = LocalDate.parse(eventInfo.getEventEndDate());
+
+            log.info("Found event starting date: " + startDate.toString());
+            log.info("Found event end date: " + endDate.toString());
+        }
+
         Event event = eventService.addEvent(
                 new Event(eventInfo.getEventName(), eventInfo.getEventDescription(),
                         eventInfo.getExpectedNumberOfParticipants(), eventInfo.getEventDurationInDays(),
-                        LocalDate.parse(eventInfo.getEventStartDate()), LocalDate.parse(eventInfo.getEventEndDate()),
+                        startDate, endDate,
                         eventInfo.getOrganizerName(), eventInfo.getOrganizerEmail(), eventInfo.getOrganizerAddress(),
                         eventInfo.getOrganizerPhone())
         );
@@ -138,7 +170,7 @@ public class UtilService {
 
                 for (int j = 0; j < eventSections.size(); j++){
 
-                    if (pdi.getDate().equals(eventSections.get(j).getEventSectionDate())){
+                    if (pdi.getDate().equals(eventSections.get(j).getEventSectionDate().toString())){
                         // remove this eventSection
                         EventSection e = eventSections.get(j);
                         TimeSlot timeSlot = new TimeSlot(e.getEventSectionStartTime().toString(),
