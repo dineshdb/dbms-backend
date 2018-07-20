@@ -1,6 +1,10 @@
 package com.sankalpa.ictc_events.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Cascade;
+
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +14,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "eventSectionId", scope = EventSection.class)
 public class EventSection {
 
     @Id
@@ -17,29 +22,31 @@ public class EventSection {
     private Long eventSectionId;
 
     private LocalDate eventSectionDate;
-    private LocalTime eventSectionTime;
+    private LocalTime eventSectionStartTime;
+    private LocalTime eventSectionEndTime;
 
     @ManyToOne
+    @JsonIgnore
     private Event event;
 
-    @ManyToMany(targetEntity = Room.class, mappedBy = "eventSections")
+    @ManyToMany(targetEntity = Room.class)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Room> rooms;
-
-    public Long getEventSectionId() {
-        return eventSectionId;
-    }
 
     public EventSection(){}
 
-    public EventSection(LocalDate eventSectionDate, LocalTime eventSectionTime, Event event, List rooms) {
+    public EventSection(LocalDate eventSectionDate, LocalTime eventSectionStartTime, LocalTime eventSectionEndTime) {
         this.eventSectionDate = eventSectionDate;
-        this.eventSectionTime = eventSectionTime;
-        this.event = event;
-        this.rooms = rooms;
+        this.eventSectionStartTime = eventSectionStartTime;
+        this.eventSectionEndTime = eventSectionEndTime;
     }
 
     public void setEventSectionId(Long eventSectionId) {
         this.eventSectionId = eventSectionId;
+    }
+
+    public Long getEventSectionId() {
+        return eventSectionId;
     }
 
     public LocalDate getEventSectionDate() {
@@ -50,21 +57,26 @@ public class EventSection {
         this.eventSectionDate = eventSectionDate;
     }
 
-    public LocalTime getEventSectionTime() {
-        return eventSectionTime;
+
+    public LocalTime getEventSectionStartTime() {
+        return eventSectionStartTime;
     }
 
-    public void setEventSectionTime(LocalTime eventSectionTime) {
-        this.eventSectionTime = eventSectionTime;
+    public LocalTime getEventSectionEndTime() {
+        return eventSectionEndTime;
     }
 
-    public LocalDate getDate(){
-        return eventSectionDate;
+    public void setEventSectionEndTime(LocalTime eventSectionEndTime) {
+        this.eventSectionEndTime = eventSectionEndTime;
     }
 
-    public int getHour(){
-        return eventSectionTime.getHour();
-    }
+//    public LocalDate getDate(){
+//        return eventSectionDate;
+//    }
+
+//    public int getHour(){
+//        return eventSectionStartTime.getHour();
+//    }
 
     public Event getEvent() {
         return event;
@@ -74,11 +86,11 @@ public class EventSection {
         this.event = event;
     }
 
-    public List getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 

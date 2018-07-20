@@ -24,8 +24,8 @@ public class RoomController {
     }
 
     @PostMapping("/rooms")
-    public void addRoom(@RequestBody Room newRoom){
-        roomService.addRoom(newRoom);
+    public @ResponseBody Room addRoom(@RequestBody Room newRoom){
+        return roomService.addRoom(newRoom);
     }
 
     @DeleteMapping("/rooms/{roomId}")
@@ -33,10 +33,9 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @PutMapping("/rooms/{roomId}")
-    public void updateRoom(@RequestBody Room updatedRoom,
-                           @PathVariable Long roomId){
-        roomService.updateRoom(roomId, updatedRoom);
+    @PutMapping("/rooms")
+    public @ResponseBody Room updateRoom(@RequestBody Room updatedRoom){
+        return roomService.updateRoom(updatedRoom);
     }
 
     @GetMapping("/roomsInOrder")

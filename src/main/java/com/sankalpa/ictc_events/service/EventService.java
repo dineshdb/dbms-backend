@@ -20,28 +20,27 @@ public class EventService {
         return events;
     }
 
-    public List<Event> getAllEvents(Long adminId){
-        return eventRepository.findByAdminUserId(adminId);
-    }
+//    public List<Event> getAllEvents(Long adminId){
+//        return eventRepository.findByAdminUserId(adminId);
+//    }
 
     public Event getEvent(Long eventId){
         return eventRepository.findById(eventId).orElse(null);
     }
 
-    public void updateEvent(Long eventId, Event updatedEvent){
-        eventRepository.save(updatedEvent);
+    public Event updateEvent(Event updatedEvent){
+        return eventRepository.save(updatedEvent);
     }
 
-    public Long addEvent(Event newEvent){
-        eventRepository.save(newEvent);
-        return newEvent.getEventId();
+    public Event addEvent(Event newEvent){
+        return eventRepository.save(newEvent);
     }
 
     public void deleteEvent(Long eventId){
         eventRepository.deleteById(eventId);
     }
 
-    public List<Event> findByOrganizerUserId(Long organizerId) {
-        return eventRepository.findByOrganizerUserId(organizerId);
-    }
+//    public List<Event> findByOrganizerUserId(Long organizerId) {
+//        return eventRepository.findByOrganizerUserId(organizerId);
+//    }
 }

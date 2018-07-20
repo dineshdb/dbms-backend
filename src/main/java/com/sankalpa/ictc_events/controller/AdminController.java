@@ -15,8 +15,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private EventService eventService;
+//    @Autowired
+//    private EventService eventService;
 
     @GetMapping("/admins")
     public @ResponseBody List<Admin> getAllAdmins(){
@@ -29,13 +29,13 @@ public class AdminController {
     }
 
     @PostMapping("/admins")
-    public void addAdmin(@RequestBody Admin newAdmin){
-        adminService.addAdmin(newAdmin);
+    public @ResponseBody Admin addAdmin(@RequestBody Admin newAdmin){
+        return adminService.addAdmin(newAdmin);
     }
 
-    @PutMapping("/admins/{adminId}")
-    public void updateAdmin(@RequestBody Admin updatedAdmin, @PathVariable Long adminId){
-        adminService.updateAdmin(adminId, updatedAdmin);
+    @PutMapping("/admins")
+    public @ResponseBody Admin updateAdmin(@RequestBody Admin updatedAdmin){
+        return adminService.updateAdmin(updatedAdmin);
     }
 
     @DeleteMapping("/admins/{adminId}")
@@ -43,14 +43,14 @@ public class AdminController {
         adminService.deleteAdmin(adminId);
     }
 
-    @GetMapping("/admins/{adminId}/events")
-    public List<Event> getAllEvents(@PathVariable Long adminId){
-        // here we used 'eventService' instead of 'adminService'
-        return eventService.getAllEvents(adminId);
-    }
+//    @GetMapping("/admins/{adminId}/events")
+//    public List<Event> getAllEvents(@PathVariable Long adminId){
+//        // here we used 'eventService' instead of 'adminService'
+//        return eventService.getAllEvents(adminId);
+//    }
 
-    @PutMapping("/admins/{adminId}/events/{eventId}")
-    public void approveEvent(@PathVariable Long adminId, @PathVariable Long eventId){
-        adminService.approveEvent(eventId, adminId);
-    }
+//    @PutMapping("/admins/{adminId}/events/{eventId}")
+//    public void approveEvent(@PathVariable Long adminId, @PathVariable Long eventId){
+//        adminService.approveEvent(eventId, adminId);
+//    }
 }

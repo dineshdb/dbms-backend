@@ -44,14 +44,13 @@ public class UserController{
     }
 
     @PostMapping("/users")
-    public void addUser(@RequestBody User newUser){
-        userService.addUser(newUser);
+    public @ResponseBody User addUser(@RequestBody User newUser){
+        return userService.addUser(newUser);
     }
 
-    @PutMapping("/users/{userId}")
-    public void updateUser(@RequestBody User updatedUser,
-                           @PathVariable Long userId){
-        userService.updateUser(userId, updatedUser);
+    @PutMapping("/users")
+    public @ResponseBody User updateUser(@RequestBody User updatedUser){
+        return userService.updateUser(updatedUser);
     }
 
     @DeleteMapping("/users/{userId}")
