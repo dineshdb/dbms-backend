@@ -26,7 +26,12 @@ public class UtilController {
 
     @PostMapping("/updateEvent/{eventId}")
     public @ResponseBody Event updateEvent(@PathVariable Long eventId, @RequestBody EventInfo eventInfo){
-        return utilService.updateEvent(eventId, eventInfo);
+        Event event = utilService.updateEvent(eventId, eventInfo);
+        if (event == null){
+            return null;
+        } else {
+            return event;
+        }
     }
 
     @GetMapping("/showAllEvents")

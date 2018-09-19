@@ -97,8 +97,38 @@ public class UtilService {
 
     public Event updateEvent(Long eventId, EventInfo eventInfo) {
 
-        eventService.deleteEvent(eventId);
-        return saveEvent(eventInfo);
+        // prevent editing the event 1 hour before the event starts
+        List<PerDayInfo> perDayInfoList = eventInfo.getPerDayInfoList();
+        List<TimeSlot> timeSlots = new ArrayList<>();
+
+        String startingDate = eventInfo.getEventStartDate();
+        String startingTime;
+        String currentTime = LocalDateTime.now().toString();
+
+        for (PerDayInfo pdi : perDayInfoList){
+            if (startingDate.equals(pdi.getDate())){
+                timeSlots = pdi.getTimeSlotList();
+            }
+        }
+
+        startingTime = timeSlots.get(0).getStartingTime();
+        for (TimeSlot ts : timeSlots){
+
+            if (LocalDateTime.parse(ts.getStartingTime()).isBefore(LocalDateTime.parse(startingTime))) {
+                startingTime = ts.getStartingTime();
+            }
+        }
+
+        if (Math.abs(LocalDateTime.parse(currentTime).getHour() - LocalDateTime.parse(startingTime).getHour()) <= 1){
+            log.info("Cannot edit the event now");
+            return null;
+
+        } else {
+
+            eventService.deleteEvent(eventId);
+            return saveEvent(eventInfo);
+
+        }
 
 //        Event event = eventService.getEvent(eventId);
 //
