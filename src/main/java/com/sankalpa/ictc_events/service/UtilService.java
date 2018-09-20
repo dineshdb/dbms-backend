@@ -101,38 +101,8 @@ public class UtilService {
 
     public Event updateEvent(Long eventId, EventInfo eventInfo) {
 
-//        // prevent editing the event 1 hour before the event starts
-//        List<PerDayInfo> perDayInfoList = eventInfo.getPerDayInfoList();
-//        List<TimeSlot> timeSlots = new ArrayList<>();
-//
-//        String startingDate = eventInfo.getEventStartDate();
-//        String startingTime;
-//        String currentTime = LocalTime.now().toString();
-//
-//        for (PerDayInfo pdi : perDayInfoList){
-//            if (startingDate.equals(pdi.getDate())){
-//                timeSlots = pdi.getTimeSlotList();
-//            }
-//        }
-//
-//        startingTime = timeSlots.get(0).getStartingTime();
-//        for (TimeSlot ts : timeSlots){
-//
-//            if (LocalTime.parse(ts.getStartingTime()).isBefore(LocalTime.parse(startingTime))) {
-//                startingTime = ts.getStartingTime();
-//            }
-//        }
-//        log.info(startingTime);
-//        if (Math.abs(LocalTime.parse(currentTime).getHour() - LocalTime.parse(startingTime).getHour()) <= 1){
-//            log.info("Cannot edit the event now");
-//            return null;
-//
-//        } else {
-
         eventService.deleteEvent(eventId);
         return saveEvent(eventInfo);
-
-        //}
 
 //        Event event = eventService.getEvent(eventId);
 //
@@ -265,8 +235,7 @@ public class UtilService {
             LocalTime dayBegin = LocalTime.of(8, 0, 0);
             LocalTime dayEnd = LocalTime.of(17, 0, 0);
 
-            TimeSlot ts = new TimeSlot(dayBegin.toString(), dayEnd.toString(), allRooms);
-            filteredTimeSlots.add(ts);
+            filteredTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), allRooms));
 
             return filteredTimeSlots;
         }
@@ -279,6 +248,10 @@ public class UtilService {
 
         for (EventSection eventSection : eventSections){
 
+            if (!eventSection.getEventSectionDate().toString().equals(date_time[0])){
+                continue;
+            }
+
             List<Room> rooms = eventSection.getRooms();
             List<Room> allRooms = roomService.getAllRooms();
             List<Room> freeRooms = new ArrayList<>();
@@ -294,103 +267,44 @@ public class UtilService {
 
             if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
                 TimeSlot ts = new TimeSlot(dayBegin.toString(),
-                        eventSection.getEventSectionStartTime().toString(), freeRooms);
+                        eventSection.getEventSectionStartTime().toString(), rooms);
                 freeTimeSlots.add(ts);
             }
 
             if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
                 TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
-                        dayEnd.toString(), freeRooms);
+                        dayEnd.toString(), rooms);
                 freeTimeSlots.add(ts);
             }
 
+            freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
         }
-//        if (date_time.length > 1) {
 
-            // time during which there are free slots
-            LocalTime time = LocalTime.parse(date_time[1]);
-
-            for (TimeSlot free : freeTimeSlots) {
-
-                LocalTime start = LocalTime.parse(free.getStartingTime());
-                LocalTime end = LocalTime.parse(free.getEndingTime());
-
-                if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
-                    filteredTimeSlots.add(free);
-                }
-            }
-
-            for (TimeSlot ts : filteredTimeSlots) {
-                log.info(ts.getStartingTime() + " " + ts.getEndingTime());
-            }
+//        // time during which there are free slots
+//        LocalTime time = LocalTime.parse(date_time[1]);
+//
+//        for (TimeSlot free : freeTimeSlots) {
+//
+//            LocalTime start = LocalTime.parse(free.getStartingTime());
+//            LocalTime end = LocalTime.parse(free.getEndingTime());
+//
+//            if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
+//                filteredTimeSlots.add(free);
+//            }
 //        }
-
-        return filteredTimeSlots;
+//
+//        for (TimeSlot ts : filteredTimeSlots) {
+//            log.info(ts.getStartingTime() + " " + ts.getEndingTime());
+//        }
+//
+//        return filteredTimeSlots;
+        return freeTimeSlots;
     }
 
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
 
         String[] date_time = date.getDate().split("\\s+");
-
         List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date_time[0]));
-
-        List<EventSection> eventSections = new ArrayList<>();
-        for (Event event : events){
-            eventSections.addAll(event.getEventSections());
-        }
-
-        List<TimeSlot> freeTimeSlots = new ArrayList<>();
-
-        for (EventSection eventSection : eventSections){
-
-            List<Room> rooms = eventSection.getRooms();
-            List<Room> allRooms = roomService.getAllRooms();
-            List<Room> freeRooms = new ArrayList<>();
-
-            for (Room room : allRooms){
-                if (!rooms.contains(room)){
-                    freeRooms.add(room);
-                }
-            }
-
-            LocalTime dayBegin = LocalTime.of(8, 0, 0);
-            LocalTime dayEnd = LocalTime.of(17, 0, 0);
-
-            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
-                TimeSlot ts = new TimeSlot(dayBegin.toString(),
-                        eventSection.getEventSectionStartTime().toString(), freeRooms);
-                freeTimeSlots.add(ts);
-            }
-
-            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
-                TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
-                        dayEnd.toString(), freeRooms);
-                freeTimeSlots.add(ts);
-            }
-
-        }
-
-        List<TimeSlot> filteredTimeSlots = new ArrayList<>();
-        if (date_time.length > 1) {
-
-            // time during which there are free slots
-            LocalTime time = LocalTime.parse(date_time[1]);
-
-            for (TimeSlot free : freeTimeSlots) {
-
-                LocalTime start = LocalTime.parse(free.getStartingTime());
-                LocalTime end = LocalTime.parse(free.getEndingTime());
-
-                if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
-                    filteredTimeSlots.add(free);
-                }
-            }
-
-            for (TimeSlot ts : filteredTimeSlots) {
-                log.info(ts.getStartingTime() + " " + ts.getEndingTime());
-            }
-        }
-
         return mapperHelper(events);
     }
 
