@@ -247,6 +247,74 @@ public class UtilService {
         return mapperHelper(events);
     }
 
+    // here CustomDate object actually holds a string containing both the date and time
+    public List<TimeSlot> findFreeSlotsAtTime(CustomDate date){
+
+        // date is a string of example "2018-09-20 13:00:00" so split it into date and time
+        String[] date_time = date.getDate().split("\\s+");
+
+        List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date_time[0]));
+
+        List<EventSection> eventSections = new ArrayList<>();
+        for (Event event : events){
+            eventSections.addAll(event.getEventSections());
+        }
+
+        List<TimeSlot> freeTimeSlots = new ArrayList<>();
+
+        for (EventSection eventSection : eventSections){
+
+            List<Room> rooms = eventSection.getRooms();
+            List<Room> allRooms = roomService.getAllRooms();
+            List<Room> freeRooms = new ArrayList<>();
+
+            for (Room room : allRooms){
+                if (!rooms.contains(room)){
+                    freeRooms.add(room);
+                }
+            }
+
+            LocalTime dayBegin = LocalTime.of(9, 0, 0);
+            LocalTime dayEnd = LocalTime.of(17, 0, 0);
+
+            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
+                TimeSlot ts = new TimeSlot(dayBegin.toString(),
+                        eventSection.getEventSectionStartTime().toString(), freeRooms);
+                freeTimeSlots.add(ts);
+            }
+
+            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
+                TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
+                        dayEnd.toString(), freeRooms);
+                freeTimeSlots.add(ts);
+            }
+
+        }
+
+        List<TimeSlot> filteredTimeSlots = new ArrayList<>();
+//        if (date_time.length > 1) {
+
+            // time during which there are free slots
+            LocalTime time = LocalTime.parse(date_time[1]);
+
+            for (TimeSlot free : freeTimeSlots) {
+
+                LocalTime start = LocalTime.parse(free.getStartingTime());
+                LocalTime end = LocalTime.parse(free.getEndingTime());
+
+                if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
+                    filteredTimeSlots.add(free);
+                }
+            }
+
+            for (TimeSlot ts : filteredTimeSlots) {
+                log.info(ts.getStartingTime() + " " + ts.getEndingTime());
+            }
+//        }
+
+        return filteredTimeSlots;
+    }
+
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
 
         String[] date_time = date.getDate().split("\\s+");
@@ -272,7 +340,7 @@ public class UtilService {
                 }
             }
 
-            LocalTime dayBegin = LocalTime.of(9, 0, 0);
+            LocalTime dayBegin = LocalTime.of(8, 0, 0);
             LocalTime dayEnd = LocalTime.of(17, 0, 0);
 
             if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){

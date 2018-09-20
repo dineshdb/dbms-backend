@@ -59,6 +59,11 @@ public class UtilController {
         return utilService.findEventsByOrganizerName(name.getName());
     }
 
+    @PostMapping("/findFreeSlotsAtTime")
+    public @ResponseBody List<TimeSlot> findFreeSlotsAtTime(@RequestBody CustomDate date){
+        return utilService.findFreeSlotsAtTime(date);
+    }
+
     @PostMapping("/findEventsByEventName")
     public @ResponseBody List<IdMapper> findEventsByEventName(@RequestBody CustomName eventName){
         return utilService.findEventsByEventName(eventName.getName());

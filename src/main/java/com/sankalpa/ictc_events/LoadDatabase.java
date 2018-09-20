@@ -32,11 +32,11 @@ public class LoadDatabase implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // default admin
+//        // default admin
 //        adminRepository.save(new Admin("admin", "ict123"));
-//
-//
-//        // rooms
+////
+////
+////        // rooms
 //        roomRepository.save(new Room("Conference", 45, 0, "Conference", 10500, 1500, 0));
 //        roomRepository.save(new Room("Meeting Room", 45, 0, "Meeting", 5000, 1000, 0));
 //        roomRepository.save(new Room("Cafeteria", 30, 0, "Cafeteria", 5600, 800, 0));
