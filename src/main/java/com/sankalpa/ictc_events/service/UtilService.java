@@ -256,6 +256,21 @@ public class UtilService {
         List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date_time[0]));
 
         List<EventSection> eventSections = new ArrayList<>();
+        List<TimeSlot> filteredTimeSlots = new ArrayList<>();
+
+        if (events.size() == 0){
+
+            List<Room> allRooms = roomService.getAllRooms();
+
+            LocalTime dayBegin = LocalTime.of(8, 0, 0);
+            LocalTime dayEnd = LocalTime.of(17, 0, 0);
+
+            TimeSlot ts = new TimeSlot(dayBegin.toString(), dayEnd.toString(), allRooms);
+            filteredTimeSlots.add(ts);
+
+            return filteredTimeSlots;
+        }
+
         for (Event event : events){
             eventSections.addAll(event.getEventSections());
         }
@@ -274,7 +289,7 @@ public class UtilService {
                 }
             }
 
-            LocalTime dayBegin = LocalTime.of(9, 0, 0);
+            LocalTime dayBegin = LocalTime.of(8, 0, 0);
             LocalTime dayEnd = LocalTime.of(17, 0, 0);
 
             if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
@@ -290,8 +305,6 @@ public class UtilService {
             }
 
         }
-
-        List<TimeSlot> filteredTimeSlots = new ArrayList<>();
 //        if (date_time.length > 1) {
 
             // time during which there are free slots
