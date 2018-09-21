@@ -280,25 +280,25 @@ public class UtilService {
             freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
         }
 
-//        // time during which there are free slots
-//        LocalTime time = LocalTime.parse(date_time[1]);
-//
-//        for (TimeSlot free : freeTimeSlots) {
-//
-//            LocalTime start = LocalTime.parse(free.getStartingTime());
-//            LocalTime end = LocalTime.parse(free.getEndingTime());
-//
-//            if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
-//                filteredTimeSlots.add(free);
-//            }
-//        }
-//
-//        for (TimeSlot ts : filteredTimeSlots) {
-//            log.info(ts.getStartingTime() + " " + ts.getEndingTime());
-//        }
-//
-//        return filteredTimeSlots;
-        return freeTimeSlots;
+        // time during which there are free slots
+        LocalTime time = LocalTime.parse(date_time[1]);
+
+        for (TimeSlot free : freeTimeSlots) {
+
+            LocalTime start = LocalTime.parse(free.getStartingTime());
+            LocalTime end = LocalTime.parse(free.getEndingTime());
+
+            if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
+                filteredTimeSlots.add(free);
+            }
+        }
+
+        for (TimeSlot ts : filteredTimeSlots) {
+            log.info(ts.getStartingTime() + " " + ts.getEndingTime());
+        }
+
+        return filteredTimeSlots;
+//        return freeTimeSlots;
     }
 
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
