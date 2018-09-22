@@ -280,7 +280,7 @@ public class UtilService {
 //            freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
             if (dayBegin.isBefore(eventSection.getEventSectionStartTime())) {
                 freeTimeSlots.add(new TimeSlot(dayBegin.toString(), eventSection.getEventSectionStartTime().toString(),
-                        rooms));
+                        allRooms));
             }
 
             freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionStartTime().toString(),
@@ -288,29 +288,35 @@ public class UtilService {
 
             if (eventSection.getEventSectionEndTime().isBefore(dayEnd)) {
                 freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionEndTime().toString(), dayEnd.toString(),
-                        rooms));
+                        allRooms));
             }
         }
 
         // time during which there are free slots
-        LocalTime time = LocalTime.parse(date_time[1]);
+        if (date_time.length > 1) {
+            LocalTime time = LocalTime.parse(date_time[1]);
 
-        for (TimeSlot free : freeTimeSlots) {
+            for (TimeSlot free : freeTimeSlots) {
 
-            LocalTime start = LocalTime.parse(free.getStartingTime());
-            LocalTime end = LocalTime.parse(free.getEndingTime());
+                LocalTime start = LocalTime.parse(free.getStartingTime());
+                LocalTime end = LocalTime.parse(free.getEndingTime());
 
-            if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
-                filteredTimeSlots.add(free);
+                if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
+                    filteredTimeSlots.add(free);
+                }
             }
-        }
 
-        for (TimeSlot ts : filteredTimeSlots) {
-            log.info(ts.getStartingTime() + " " + ts.getEndingTime());
-        }
+            for (TimeSlot ts : filteredTimeSlots) {
+                log.info(ts.getStartingTime() + " " + ts.getEndingTime());
+            }
 
-        return filteredTimeSlots;
-//        return freeTimeSlots;
+            return filteredTimeSlots;
+
+        } else {
+
+            return freeTimeSlots;
+
+        }
     }
 
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
