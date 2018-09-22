@@ -265,19 +265,31 @@ public class UtilService {
             LocalTime dayBegin = LocalTime.of(8, 0, 0);
             LocalTime dayEnd = LocalTime.of(17, 0, 0);
 
-            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
-                TimeSlot ts = new TimeSlot(dayBegin.toString(),
-                        eventSection.getEventSectionStartTime().toString(), rooms);
-                freeTimeSlots.add(ts);
+//            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
+//                TimeSlot ts = new TimeSlot(dayBegin.toString(),
+//                        eventSection.getEventSectionStartTime().toString(), rooms);
+//                freeTimeSlots.add(ts);
+//            }
+//
+//            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
+//                TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
+//                        dayEnd.toString(), rooms);
+//                freeTimeSlots.add(ts);
+//            }
+
+//            freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
+            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())) {
+                freeTimeSlots.add(new TimeSlot(dayBegin.toString(), eventSection.getEventSectionStartTime().toString(),
+                        rooms));
             }
 
-            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
-                TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
-                        dayEnd.toString(), rooms);
-                freeTimeSlots.add(ts);
-            }
+            freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionStartTime().toString(),
+                    eventSection.getEventSectionEndTime().toString(), freeRooms));
 
-            freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
+            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)) {
+                freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionEndTime().toString(), dayEnd.toString(),
+                        rooms));
+            }
         }
 
         // time during which there are free slots
