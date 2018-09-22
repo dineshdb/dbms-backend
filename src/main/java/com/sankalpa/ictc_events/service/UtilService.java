@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UtilService {
@@ -290,6 +288,68 @@ public class UtilService {
                 freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionEndTime().toString(), dayEnd.toString(),
                         allRooms));
             }
+        }
+
+        List<TimeSlot> toDelete = new ArrayList<>();
+
+        // merge timeslots here
+        for (int i = 0; i < freeTimeSlots.size(); i++){
+
+            TimeSlot lhs = freeTimeSlots.get(i);
+            LocalTime lhs_start = LocalTime.parse(lhs.getStartingTime());
+            LocalTime lhs_end = LocalTime.parse(lhs.getEndingTime());
+            List<Room> lhs_rooms = lhs.getRooms();
+
+            for (int j = 0; j < freeTimeSlots.size(); j++){
+
+                if (i == j)
+                    continue;
+
+                TimeSlot rhs = freeTimeSlots.get(j);
+                LocalTime rhs_start = LocalTime.parse(rhs.getStartingTime());
+                LocalTime rhs_end = LocalTime.parse(rhs.getEndingTime());
+
+                if (rhs_start.equals(lhs_start) && rhs_end.equals(lhs_end)){
+
+                    // merge the two timeslots if the rhs is equal to lhs
+                    List<Room> rhs_rooms = rhs.getRooms();
+                    for (Room rhs_room : rhs_rooms){
+                        if (lhs_rooms.contains(rhs_room)){
+                            continue;
+                        } else{
+                            lhs_rooms.add(rhs_room);
+                        }
+                    }
+
+                    freeTimeSlots.remove(rhs);
+
+                    lhs.setRooms(lhs_rooms);
+
+                } else if ((rhs_start.equals(lhs_start) || rhs_start.isAfter(lhs_start)) &&
+                        (rhs_end.equals(lhs_end) || rhs_end.isBefore(lhs_end))){
+
+                    if (rhs_start.isAfter(lhs_start) && rhs_end.isBefore(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(lhs_start.toString(), rhs_start.toString(), lhs_rooms));
+                        freeTimeSlots.add(new TimeSlot(rhs_end.toString(), lhs_end.toString(), lhs_rooms));
+
+
+                    } else if (rhs_start.isAfter(lhs_start) && rhs_end.equals(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(lhs_start.toString(), rhs_start.toString(), lhs_rooms));
+
+                    } else if (rhs_start.equals(lhs_start) && rhs_end.isBefore(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(rhs_end.toString(), lhs_end.toString(), lhs_rooms));
+
+                    }
+
+                    freeTimeSlots.remove(lhs);
+
+                    break;
+                }
+            }
+
         }
 
         // time during which there are free slots
