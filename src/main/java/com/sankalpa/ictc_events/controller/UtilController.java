@@ -26,7 +26,12 @@ public class UtilController {
 
     @PostMapping("/updateEvent/{eventId}")
     public @ResponseBody Event updateEvent(@PathVariable Long eventId, @RequestBody EventInfo eventInfo){
-        return utilService.updateEvent(eventId, eventInfo);
+        Event event = utilService.updateEvent(eventId, eventInfo);
+        if (event == null){
+            return null;
+        } else {
+            return event;
+        }
     }
 
     @GetMapping("/showAllEvents")
@@ -52,6 +57,11 @@ public class UtilController {
     @PostMapping("/findEventsByOrganizerName")
     public @ResponseBody List<IdMapper> findEventsByOrganizerName(@RequestBody CustomName name){
         return utilService.findEventsByOrganizerName(name.getName());
+    }
+
+    @PostMapping("/findFreeSlotsAtTime")
+    public @ResponseBody List<TimeSlot> findFreeSlotsAtTime(@RequestBody CustomDate date){
+        return utilService.findFreeSlotsAtTime(date);
     }
 
     @PostMapping("/findEventsByEventName")

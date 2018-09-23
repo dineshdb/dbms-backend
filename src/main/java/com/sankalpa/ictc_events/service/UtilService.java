@@ -4,6 +4,7 @@ import com.sankalpa.ictc_events.model.*;
 import com.sankalpa.ictc_events.repository.EventRepository;
 import com.sankalpa.ictc_events.repository.EventSectionRepository;
 import com.sankalpa.ictc_events.repository.UtilRepository;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UtilService {
@@ -29,6 +28,9 @@ public class UtilService {
 
     @Autowired
     private EventSectionService eventSectionService;
+
+    @Autowired
+    private RoomService roomService;
 
     public List<Room> findRooms(FindRoomHelper findRoomHelper) {
         return utilRepository.findRooms(findRoomHelper);
@@ -213,8 +215,174 @@ public class UtilService {
         return mapperHelper(events);
     }
 
+    // here CustomDate object actually holds a string containing both the date and time
+    public List<TimeSlot> findFreeSlotsAtTime(CustomDate date){
+
+        // date is a string of example "2018-09-20 13:00:00" so split it into date and time
+        String[] date_time = date.getDate().split("\\s+");
+
+        List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date_time[0]));
+
+        List<EventSection> eventSections = new ArrayList<>();
+        List<TimeSlot> filteredTimeSlots = new ArrayList<>();
+
+        if (events.size() == 0){
+
+            List<Room> allRooms = roomService.getAllRooms();
+
+            LocalTime dayBegin = LocalTime.of(8, 0, 0);
+            LocalTime dayEnd = LocalTime.of(17, 0, 0);
+
+            filteredTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), allRooms));
+
+            return filteredTimeSlots;
+        }
+
+        for (Event event : events){
+            eventSections.addAll(event.getEventSections());
+        }
+
+        List<TimeSlot> freeTimeSlots = new ArrayList<>();
+
+        for (EventSection eventSection : eventSections){
+
+            if (!eventSection.getEventSectionDate().toString().equals(date_time[0])){
+                continue;
+            }
+
+            List<Room> rooms = eventSection.getRooms();
+            List<Room> allRooms = roomService.getAllRooms();
+            List<Room> freeRooms = new ArrayList<>();
+
+            for (Room room : allRooms){
+                if (!rooms.contains(room)){
+                    freeRooms.add(room);
+                }
+            }
+
+            LocalTime dayBegin = LocalTime.of(8, 0, 0);
+            LocalTime dayEnd = LocalTime.of(17, 0, 0);
+
+//            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())){
+//                TimeSlot ts = new TimeSlot(dayBegin.toString(),
+//                        eventSection.getEventSectionStartTime().toString(), rooms);
+//                freeTimeSlots.add(ts);
+//            }
+//
+//            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)){
+//                TimeSlot ts = new TimeSlot(eventSection.getEventSectionEndTime().toString(),
+//                        dayEnd.toString(), rooms);
+//                freeTimeSlots.add(ts);
+//            }
+
+//            freeTimeSlots.add(new TimeSlot(dayBegin.toString(), dayEnd.toString(), freeRooms));
+            if (dayBegin.isBefore(eventSection.getEventSectionStartTime())) {
+                freeTimeSlots.add(new TimeSlot(dayBegin.toString(), eventSection.getEventSectionStartTime().toString(),
+                        allRooms));
+            }
+
+            freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionStartTime().toString(),
+                    eventSection.getEventSectionEndTime().toString(), freeRooms));
+
+            if (eventSection.getEventSectionEndTime().isBefore(dayEnd)) {
+                freeTimeSlots.add(new TimeSlot(eventSection.getEventSectionEndTime().toString(), dayEnd.toString(),
+                        allRooms));
+            }
+        }
+
+        List<TimeSlot> toDelete = new ArrayList<>();
+
+        // merge timeslots here
+        for (int i = 0; i < freeTimeSlots.size(); i++){
+
+            TimeSlot lhs = freeTimeSlots.get(i);
+            LocalTime lhs_start = LocalTime.parse(lhs.getStartingTime());
+            LocalTime lhs_end = LocalTime.parse(lhs.getEndingTime());
+            List<Room> lhs_rooms = lhs.getRooms();
+
+            for (int j = 0; j < freeTimeSlots.size(); j++){
+
+                if (i == j)
+                    continue;
+
+                TimeSlot rhs = freeTimeSlots.get(j);
+                LocalTime rhs_start = LocalTime.parse(rhs.getStartingTime());
+                LocalTime rhs_end = LocalTime.parse(rhs.getEndingTime());
+
+                if (rhs_start.equals(lhs_start) && rhs_end.equals(lhs_end)){
+
+                    // merge the two timeslots if the rhs is equal to lhs
+                    List<Room> rhs_rooms = rhs.getRooms();
+                    for (Room rhs_room : rhs_rooms){
+                        if (lhs_rooms.contains(rhs_room)){
+                            continue;
+                        } else{
+                            lhs_rooms.add(rhs_room);
+                        }
+                    }
+
+                    freeTimeSlots.remove(rhs);
+
+                    lhs.setRooms(lhs_rooms);
+
+                } else if ((rhs_start.equals(lhs_start) || rhs_start.isAfter(lhs_start)) &&
+                        (rhs_end.equals(lhs_end) || rhs_end.isBefore(lhs_end))){
+
+                    if (rhs_start.isAfter(lhs_start) && rhs_end.isBefore(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(lhs_start.toString(), rhs_start.toString(), lhs_rooms));
+                        freeTimeSlots.add(new TimeSlot(rhs_end.toString(), lhs_end.toString(), lhs_rooms));
+
+
+                    } else if (rhs_start.isAfter(lhs_start) && rhs_end.equals(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(lhs_start.toString(), rhs_start.toString(), lhs_rooms));
+
+                    } else if (rhs_start.equals(lhs_start) && rhs_end.isBefore(lhs_end)){
+
+                        freeTimeSlots.add(new TimeSlot(rhs_end.toString(), lhs_end.toString(), lhs_rooms));
+
+                    }
+
+                    freeTimeSlots.remove(lhs);
+
+                    break;
+                }
+            }
+
+        }
+
+        // time during which there are free slots
+        if (date_time.length > 1) {
+            LocalTime time = LocalTime.parse(date_time[1]);
+
+            for (TimeSlot free : freeTimeSlots) {
+
+                LocalTime start = LocalTime.parse(free.getStartingTime());
+                LocalTime end = LocalTime.parse(free.getEndingTime());
+
+                if ((time.isAfter(start) || time.equals(start)) && (time.isBefore(end) || time.equals(end))) {
+                    filteredTimeSlots.add(free);
+                }
+            }
+
+            for (TimeSlot ts : filteredTimeSlots) {
+                log.info(ts.getStartingTime() + " " + ts.getEndingTime());
+            }
+
+            return filteredTimeSlots;
+
+        } else {
+
+            return freeTimeSlots;
+
+        }
+    }
+
     public List<IdMapper> findEventsHappeningAtDate(CustomDate date) {
-        List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date.getDate()));
+
+        String[] date_time = date.getDate().split("\\s+");
+        List<Event> events = utilRepository.findEventsHappeningAtDate(LocalDate.parse(date_time[0]));
         return mapperHelper(events);
     }
 

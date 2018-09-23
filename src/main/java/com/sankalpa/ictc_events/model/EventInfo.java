@@ -5,8 +5,6 @@ import java.util.List;
 
 public class EventInfo {
 
-    // TODO: change this class since it no longer uses the 8*15 matrix format
-
     private String organizerName;
     private String organizerEmail;
     private String organizerAddress;
