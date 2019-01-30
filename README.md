@@ -7,7 +7,7 @@ Online web based ICTC events database.
 * Build the project using ``` ./gradlew build ```. It will build the backend components.
 * Create database from [here](#create_database)
 * Run the project using ``` ./gradlew bootRun```. Go to http://localhost:8080 to see the output.
-* To sync new updates ``git pull --recurse-submodules``.
+* To sync new updates ``git pull --recurse-submodules``. However submodules can get out of sync too soon so it is better to pull each submodule individually during development. Don't forget to sync the submodules before release.
 
 ## Create Database
 Install mysql or mariadb and get into its root shell. Then execute:
